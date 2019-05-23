@@ -105,7 +105,6 @@ var userWithTweetsToDiv = function (obj) {
 console.log(userWithTweetsToDiv({"name": "Semmy Purewal","screen_name":"semmypurewal","tweets": ["this is a tweet.","this is another tweet!"]}));
 
 
-
 // Write a function that accepts an array of strings, and returns an object that
 // represents the number of times that each string appears in the array. This might
 // sound confusing, but this is what we'd like to have happen.
@@ -121,9 +120,30 @@ console.log(userWithTweetsToDiv({"name": "Semmy Purewal","screen_name":"semmypur
 //
 // There are several ways you can do it, but it might be interesting to try it with
 // the `reduce` method that starts with an empty object.
-//
+
+
 var frequencies = function (arr) {
-  return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {})
+  //return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {})
+  newarr=[];
+  count=[];
+  var obj={};
+  for(var i=0;i<arr.length;i++)
+  {
+  	var c=0;
+  	for(var j=i;j<arr.length;j++)
+  	{
+  		if(arr[i]==arr[j])
+  			c++;
+  	}
+  	if(newarr.indexOf(arr[i])==-1){
+  		newarr.push(""+arr[i]+"");
+  		count.push(c);
+  	}
+
+  }
+  for(var i=0;i<newarr.length;i++){
+  	obj[newarr[i]]=count[i];}
+  return obj;
 };
 console.log(frequencies([ "hello", "world", "hello", "goodbye", "hello", "world", "thing" ]));
 console.log(frequencies([]));

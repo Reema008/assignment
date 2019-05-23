@@ -999,72 +999,100 @@ var tweets = [{"created_at":"Sun Oct 26 19:40:23 +0000 2014","id":52645833841064
 {"created_at":"Sun Oct 26 19:40:47 +0000 2014","id":526458439078129660,"id_str":"526458439078129665","text":"RT @blomseveski: Smells like art","source":"<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":533355028,"id_str":"533355028","name":"13.","screen_name":"idkathba","location":"","url":"http://oh-ath.tumblr.com","description":"you suck","protected":false,"verified":false,"followers_count":1614,"friends_count":578,"listed_count":1,"favourites_count":2471,"statuses_count":78823,"created_at":"Thu Mar 22 18:16:07 +0000 2012","utc_offset":14400,"time_zone":"Abu Dhabi","geo_enabled":true,"lang":"en","contributors_enabled":false,"is_translator":false,"profile_background_color":"000000","profile_background_image_url":"http://pbs.twimg.com/profile_background_images/448001254300467200/D5UUO_s9.png","profile_background_image_url_https":"https://pbs.twimg.com/profile_background_images/448001254300467200/D5UUO_s9.png","profile_background_tile":true,"profile_link_color":"420435","profile_sidebar_border_color":"FFFFFF","profile_sidebar_fill_color":"252429","profile_text_color":"666666","profile_use_background_image":true,"profile_image_url":"http://pbs.twimg.com/profile_images/518742524492402688/hbsBn2cf_normal.jpeg","profile_image_url_https":"https://pbs.twimg.com/profile_images/518742524492402688/hbsBn2cf_normal.jpeg","profile_banner_url":"https://pbs.twimg.com/profile_banners/533355028/1412513220","default_profile":false,"default_profile_image":false,"following":null,"follow_request_sent":null,"notifications":null},"geo":null,"coordinates":null,"place":null,"contributors":null,"retweeted_status":{"created_at":"Sun Oct 26 19:40:26 +0000 2014","id":526458348455997440,"id_str":"526458348455997443","text":"Smells like art","source":"<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":1542901945,"id_str":"1542901945","name":"blomseveski.","screen_name":"blomseveski","location":"","url":null,"description":null,"protected":false,"verified":false,"followers_count":1446,"friends_count":246,"listed_count":1,"favourites_count":0,"statuses_count":35390,"created_at":"Mon Jun 24 09:14:17 +0000 2013","utc_offset":14400,"time_zone":"Abu Dhabi","geo_enabled":true,"lang":"en","contributors_enabled":false,"is_translator":false,"profile_background_color":"C0DEED","profile_background_image_url":"http://abs.twimg.com/images/themes/theme1/bg.png","profile_background_image_url_https":"https://abs.twimg.com/images/themes/theme1/bg.png","profile_background_tile":false,"profile_link_color":"0084B4","profile_sidebar_border_color":"C0DEED","profile_sidebar_fill_color":"DDEEF6","profile_text_color":"333333","profile_use_background_image":true,"profile_image_url":"http://pbs.twimg.com/profile_images/526401125369397248/K8vYXrNG_normal.jpeg","profile_image_url_https":"https://pbs.twimg.com/profile_images/526401125369397248/K8vYXrNG_normal.jpeg","default_profile":true,"default_profile_image":false,"following":null,"follow_request_sent":null,"notifications":null},"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":1,"favorite_count":0,"entities":{"hashtags":[],"trends":[],"urls":[],"user_mentions":[],"symbols":[]},"favorited":false,"retweeted":false,"possibly_sensitive":false,"filter_level":"low","lang":"en"},"retweet_count":0,"favorite_count":0,"entities":{"hashtags":[],"trends":[],"urls":[],"user_mentions":[{"screen_name":"blomseveski","name":"blomseveski.","id":1542901945,"id_str":"1542901945","indices":[3,15]}],"symbols":[]},"favorited":false,"retweeted":false,"possibly_sensitive":false,"filter_level":"medium","lang":"en","timestamp_ms":"1414352447699"}];
 
 
-//5. Create an array that only contains only the tweet texts that contain the word
-//"awesome" (upper or lower case). How many tweets are in the array?
-var ar=[];
-var text=tweets.filter(function(arr){
-	var text=arr.text.toLowerCase();
-	if(text.includes("awesome")){
-		ar.push(arr.text);
-	}
-})
-console.log(ar);
+/*For the next set of questions, open up the file `tweets.html` in Chrome, then
+open the developer console. There should be a variable defined called
+`tweets`. You can confirm this by typing it at the console.
 
-//6. How many of the tweets contains URLs in them? (You can just look for "http:"
-//as a substring).
+    tweets;
+    //=> Array[500]
+
+This is an array that contains a random sample of 500 tweets from the afternoon
+of Sunday, October 26, 2014. Using our favorite array methods (`map`, `filter`,
+`reduce`, `some`, and `every` methods) answer the following questions.
+
+
+
+5. Create an array that only contains only the tweet texts that contain the word
+"awesome" (upper or lower case). How many tweets are in the array?*/
+
 var arr=[];
-var url=tweets.map(function(arg){
-	if(arg.user.url!=null){
-		arr.push(arg.user.url);
+tweets.filter(function(elements){
+	var tweet=elements.text.toLowerCase();
+	if(tweet.includes("awesome")){
+		arr.push(elements.text);
 	}
+});
+console.log(arr);
+
+
+
+/*6. How many of the tweets contains URLs in them? (You can just look for "http:"
+as a substring).*/
+
+var arr=[];
+tweets.filter(function(elements){
+	if(elements.user.url!=null){
+		var urls=elements.user.url;
+		if(urls.indexOf(":")==4)
+			arr.push(elements.user.url);
+	}
+	
 })
 console.log(arr);
 
 
 
-//7. How many of the tweets are associated with users who have underscores ("_")
-//in their screen name?
+/*7. How many of the tweets are associated with users who have underscores ("_")
+in their screen name?*/
+
 var array=[];
-var und=tweets.map(function(arg){
-	if(arg.user.screen_name.includes("_")){
-		 array.push(arg.user.screen_name);
+tweets.map(function(elements){
+	if(elements.user.screen_name.includes("_")){
+		 array.push(elements.user.screen_name);
 	}
 })
 console.log(array);
 
+/*8. What is the screen name of the user with the most followers?*/
 
-//8. What is the screen name of the user with the most followers?
-var followers=tweets.map(function(arg){
-	return arg.user.followers_count;
+var follow=tweets.map(function(elements){
+	return elements.user.followers_count;
 })
-console.log(followers);
-var d=followers.indexOf(Math.max(...followers));
-console.log(tweets[d].user.screen_name);
+var c=follow.indexOf(Math.max(...follow));
+console.log(tweets[c].user.screen_name);
 
-//9. The "statuses_count" property of a user object contains the number of tweets
-//that the user has tweeted. How many users have tweeted exactly 1 tweet? What are
-//their screen names?
 
-var tweeted=tweets.filter(function(arg){
-	if(arg.user.statuses_count==1){
-		console.log(arg.user.screen_name);
-	}
-})
+/*9. The "statuses_count" property of a user object contains the number of tweets
+that the user has tweeted. How many users have tweeted exactly 1 tweet? What are
+their screen names?
 
-//10. What is the average number of followers among those users associated with
-//tweets that contain "lol" (case insensitive)?
-var ar=[];
-var c=0;
-var twee=tweets.filter(function(arg){
-	if(arg.text.toLowerCase().includes("lol")){
-		ar.push(arg.user.followers_count);
-		c+=1;
-	}
-})
-console.log(ar);
-var avg=ar.reduce(function(t,a){
-	return t+a;
-},0)
-console.log(Math.floor(avg/c));
+10. What is the average number of followers among those users associated with
+tweets that contain "lol" (case insensitive)?*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
