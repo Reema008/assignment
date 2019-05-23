@@ -90,8 +90,20 @@ console.log(userToDiv({ "age": 37, "name":"Semmy Purewal", "screen_name":"semmyp
 //     });
 //     //=> "<div><h1>Semmy Purewal</h1><h2>semmypurewal</h2><ul><li>this is a tweet.</li><li>this is another tweet</li></ul></div>"
 //
-var userWithTweetsToDiv = function () {
+
+var userWithTweetsToDiv = function (obj) {
+	var str="";
+	str=str+"<div><h1>"+obj.name+"</h1><h2>"+obj.screen_name+"</h2><ul>";
+	arr=obj.tweets;
+	for(var i=0;i<arr.length;i++)
+	{
+		str=str+"<li>"+arr[i]+"</li>";
+	}
+	str=str+"</ul></div>";
+	return str;
 };
+console.log(userWithTweetsToDiv({"name": "Semmy Purewal","screen_name":"semmypurewal","tweets": ["this is a tweet.","this is another tweet!"]}));
+
 
 
 // Write a function that accepts an array of strings, and returns an object that
@@ -110,5 +122,9 @@ var userWithTweetsToDiv = function () {
 // There are several ways you can do it, but it might be interesting to try it with
 // the `reduce` method that starts with an empty object.
 //
-var frequencies = function () {
+var frequencies = function (arr) {
+  return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {})
 };
+console.log(frequencies([ "hello", "world", "hello", "goodbye", "hello", "world", "thing" ]));
+console.log(frequencies([]));
+console.log(frequencies([ "hello", "world" ]));
