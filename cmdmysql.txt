@@ -1,0 +1,916 @@
+Microsoft Windows [Version 10.0.10586]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Users\reemaroy>CD..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 222
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> exit
+Bye
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 223
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| reema              |
+| test               |
++--------------------+
+6 rows in set (0.00 sec)
+
+MariaDB [(none)]> CREATE DATABASE DogApp;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dogapp             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| reema              |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> CREATE DATABASE soap_store;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dogapp             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| reema              |
+| soap_store         |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> CREATE DATABASE My App;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'App' at line 1
+MariaDB [(none)]> DROP DATABASE dogapp;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| reema              |
+| soap_store         |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> USE soap_store;
+Database changed
+MariaDB [soap_store]> SELECT soap_store();
+ERROR 1305 (42000): FUNCTION soap_store.soap_store does not exist
+MariaDB [soap_store]> SELECT database();
++------------+
+| database() |
++------------+
+| soap_store |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> create table cats
+    -> {
+    -> name varchar(100),
+    -> age int
+    -> age int
+    ->
+    -> create table
+    -> };
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '{
+name varchar(100),
+age int
+age int
+
+create table
+}' at line 2
+MariaDB [soap_store]> create table cats
+    -> {
+    -> name varchar(100),
+    -> breed varchar(100),
+    -> age int
+    -> };
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '{
+name varchar(100),
+breed varchar(100),
+age int
+}' at line 2
+MariaDB [soap_store]> create table cats
+    -> (
+    -> name varchar(100),
+    -> breed varchar(100),
+    -> age int
+    -> );
+Query OK, 0 rows affected (0.15 sec)
+
+MariaDB [soap_store]> show columns from cats
+    -> show tables
+    -> show tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'show tables
+show tables' at line 2
+MariaDB [soap_store]> show tables;
++----------------------+
+| Tables_in_soap_store |
++----------------------+
+| cats                 |
++----------------------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> show columns from cats;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(100) | YES  |     | NULL    |       |
+| breed | varchar(100) | YES  |     | NULL    |       |
+| age   | int(11)      | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+MariaDB [soap_store]> create table pastries
+    -> (
+    -> name varchar(100),
+    -> quantity int
+    -> );
+Query OK, 0 rows affected (0.15 sec)
+
+MariaDB [soap_store]> show columns from pastries;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| name     | varchar(100) | YES  |     | NULL    |       |
+| quantity | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+MariaDB [soap_store]> show tables;
++----------------------+
+| Tables_in_soap_store |
++----------------------+
+| cats                 |
+| pastries             |
++----------------------+
+2 rows in set (0.00 sec)
+
+MariaDB [soap_store]> drop table pastries;
+Query OK, 0 rows affected (0.18 sec)
+
+MariaDB [soap_store]> show tables;
++----------------------+
+| Tables_in_soap_store |
++----------------------+
+| cats                 |
++----------------------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> insert into cats(name,breed,age)
+    -> values('jetson','scottish',7);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [soap_store]> show columns from cats;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(100) | YES  |     | NULL    |       |
+| breed | varchar(100) | YES  |     | NULL    |       |
+| age   | int(11)      | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+MariaDB [soap_store]> show tables;
++----------------------+
+| Tables_in_soap_store |
++----------------------+
+| cats                 |
++----------------------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats;
++--------+----------+------+
+| name   | breed    | age  |
++--------+----------+------+
+| jetson | scottish |    7 |
++--------+----------+------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> insert into cats(name,breed,age)
+    -> values('charlie','pug',8),('sadie','scot',3),('lazy bear','pomarade',6);
+Query OK, 3 rows affected (0.15 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [soap_store]> select * from cats;
++-----------+----------+------+
+| name      | breed    | age  |
++-----------+----------+------+
+| jetson    | scottish |    7 |
+| charlie   | pug      |    8 |
+| sadie     | scot     |    3 |
+| lazy bear | pomarade |    6 |
++-----------+----------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> create table people
+    -> (
+    -> first_name varchar(20),
+    -> last_name varchar(20),
+    -> age int
+    -> );
+Query OK, 0 rows affected (0.28 sec)
+
+MariaDB [soap_store]> insert into people(first_name,last_name,age)
+    -> values('tina','belcher',13);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [soap_store]> select * from people;
++------------+-----------+------+
+| first_name | last_name | age  |
++------------+-----------+------+
+| tina       | belcher   |   13 |
++------------+-----------+------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> insert into people(first_name,last_name,age)
+    -> values('charlie','clisthopher',48),('sadie','belcher',38),('calvin','frond',70);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [soap_store]> select * from people;
++------------+-------------+------+
+| first_name | last_name   | age  |
++------------+-------------+------+
+| tina       | belcher     |   13 |
+| charlie    | clisthopher |   48 |
+| sadie      | belcher     |   38 |
+| calvin     | frond       |   70 |
++------------+-------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> create table employee
+    -> (
+    -> id int not null auto_increment,
+    -> last_name varchar(255) not null,
+    -> first_name varchar(255) not null,
+    -> middle_name varchar(255),
+    -> age int not null,
+    -> current_status varchar(100) not null default 'employed',
+    -> primary key(id)
+    -> );
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [soap_store]> show columns from employee;
++----------------+--------------+------+-----+----------+----------------+
+| Field          | Type         | Null | Key | Default  | Extra          |
++----------------+--------------+------+-----+----------+----------------+
+| id             | int(11)      | NO   | PRI | NULL     | auto_increment |
+| last_name      | varchar(255) | NO   |     | NULL     |                |
+| first_name     | varchar(255) | NO   |     | NULL     |                |
+| middle_name    | varchar(255) | YES  |     | NULL     |                |
+| age            | int(11)      | NO   |     | NULL     |                |
+| current_status | varchar(100) | NO   |     | employed |                |
++----------------+--------------+------+-----+----------+----------------+
+6 rows in set (0.01 sec)
+
+MariaDB [soap_store]> DROP TABLE Cats;
+Query OK, 0 rows affected (0.09 sec)
+
+MariaDB [soap_store]> CREATE TABLE cats
+    ->   (
+    ->      cat_id INT NOT NULL AUTO_INCREMENT,
+    ->      name   VARCHAR(100),
+    ->      breed  VARCHAR(100),
+    ->      age    INT,
+    ->      PRIMARY KEY (cat_id)
+    ->   );
+Query OK, 0 rows affected (0.27 sec)
+
+MariaDB [soap_store]> INSERT INTO cats(name, breed, age)
+    -> VALUES ('Ringo', 'Tabby', 4),
+    ->        ('Cindy', 'Maine Coon', 10),
+    ->        ('Dumbledore', 'Maine Coon', 11),
+    ->        ('Egg', 'Persian', 4),
+    ->        ('Misty', 'Tabby', 13),
+    ->        ('George Michael', 'Ragdoll', 9),
+    ->        ('Jackson', 'Sphynx', 7);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | Tabby      |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | Tabby      |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jackson        | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select from cats;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from cats' at line 1
+MariaDB [soap_store]> select name from cats;
++----------------+
+| name           |
++----------------+
+| Ringo          |
+| Cindy          |
+| Dumbledore     |
+| Egg            |
+| Misty          |
+| George Michael |
+| Jackson        |
++----------------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select name,age from cats;
++----------------+------+
+| name           | age  |
++----------------+------+
+| Ringo          |    4 |
+| Cindy          |   10 |
+| Dumbledore     |   11 |
+| Egg            |    4 |
+| Misty          |   13 |
+| George Michael |    9 |
+| Jackson        |    7 |
++----------------+------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats where age=4;
++--------+-------+---------+------+
+| cat_id | name  | breed   | age  |
++--------+-------+---------+------+
+|      1 | Ringo | Tabby   |    4 |
+|      4 | Egg   | Persian |    4 |
++--------+-------+---------+------+
+2 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats where name='egg';
++--------+------+---------+------+
+| cat_id | name | breed   | age  |
++--------+------+---------+------+
+|      4 | Egg  | Persian |    4 |
++--------+------+---------+------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select cat_id from cats;
++--------+
+| cat_id |
++--------+
+|      1 |
+|      2 |
+|      3 |
+|      4 |
+|      5 |
+|      6 |
+|      7 |
++--------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select name,breed from cats;
++----------------+------------+
+| name           | breed      |
++----------------+------------+
+| Ringo          | Tabby      |
+| Cindy          | Maine Coon |
+| Dumbledore     | Maine Coon |
+| Egg            | Persian    |
+| Misty          | Tabby      |
+| George Michael | Ragdoll    |
+| Jackson        | Sphynx     |
++----------------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select name,age from cats where breed='tabby';
++-------+------+
+| name  | age  |
++-------+------+
+| Ringo |    4 |
+| Misty |   13 |
++-------+------+
+2 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select cat_id,age from cats where cat_id=age;
++--------+------+
+| cat_id | age  |
++--------+------+
+|      4 |    4 |
+|      7 |    7 |
++--------+------+
+2 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select car_id as id,name from cats;
+ERROR 1054 (42S22): Unknown column 'car_id' in 'field list'
+MariaDB [soap_store]> select cat_id as id,name from cats;
++----+----------------+
+| id | name           |
++----+----------------+
+|  1 | Ringo          |
+|  2 | Cindy          |
+|  3 | Dumbledore     |
+|  4 | Egg            |
+|  5 | Misty          |
+|  6 | George Michael |
+|  7 | Jackson        |
++----+----------------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> update cats set breed='shorthair'
+    -> where breed ='tabby';
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | shorthair  |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | shorthair  |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jackson        | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> update cats set name='jack'
+    -> where name ='jackson';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | shorthair  |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | shorthair  |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | jack           | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> update cats set breed='british shorthair'
+    -> where name ='ringo';
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+-------------------+------+
+| cat_id | name           | breed             | age  |
++--------+----------------+-------------------+------+
+|      1 | Ringo          | british shorthair |    4 |
+|      2 | Cindy          | Maine Coon        |   10 |
+|      3 | Dumbledore     | Maine Coon        |   11 |
+|      4 | Egg            | Persian           |    4 |
+|      5 | Misty          | shorthair         |   13 |
+|      6 | George Michael | Ragdoll           |    9 |
+|      7 | jack           | Sphynx            |    7 |
++--------+----------------+-------------------+------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> update cats set age=12
+    -> where breed ='maine coon';
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+-------------------+------+
+| cat_id | name           | breed             | age  |
++--------+----------------+-------------------+------+
+|      1 | Ringo          | british shorthair |    4 |
+|      2 | Cindy          | Maine Coon        |   12 |
+|      3 | Dumbledore     | Maine Coon        |   12 |
+|      4 | Egg            | Persian           |    4 |
+|      5 | Misty          | shorthair         |   13 |
+|      6 | George Michael | Ragdoll           |    9 |
+|      7 | jack           | Sphynx            |    7 |
++--------+----------------+-------------------+------+
+7 rows in set (0.00 sec)
+
+MariaDB [soap_store]> delete from cats where age=4;
+Query OK, 2 rows affected (0.03 sec)
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      5 | Misty          | shorthair  |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | jack           | Sphynx     |    7 |
++--------+----------------+------------+------+
+5 rows in set (0.00 sec)
+
+MariaDB [soap_store]> delete from cats where age=cat_id;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      5 | Misty          | shorthair  |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select concat(name,breed) from cats;
++-----------------------+
+| concat(name,breed)    |
++-----------------------+
+| CindyMaine Coon       |
+| DumbledoreMaine Coon  |
+| Mistyshorthair        |
+| George MichaelRagdoll |
++-----------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select
+    -> concat_ws('-',name,breed)from cats;
++---------------------------+
+| concat_ws('-',name,breed) |
++---------------------------+
+| Cindy-Maine Coon          |
+| Dumbledore-Maine Coon     |
+| Misty-shorthair           |
+| George Michael-Ragdoll    |
++---------------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select substring(name,1,3);
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+MariaDB [soap_store]> select substring(name,1,3)from cats;
++---------------------+
+| substring(name,1,3) |
++---------------------+
+| Cin                 |
+| Dum                 |
+| Mis                 |
+| Geo                 |
++---------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select reverse(name)from cats;
++----------------+
+| reverse(name)  |
++----------------+
+| ydniC          |
+| erodelbmuD     |
+| ytsiM          |
+| leahciM egroeG |
++----------------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select name from cats where char_length(name)=3;
+Empty set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      5 | Misty          | shorthair  |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select name from cats where char_length(name)=5;
++-------+
+| name  |
++-------+
+| Cindy |
+| Misty |
++-------+
+2 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select upper(name);
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+MariaDB [soap_store]> select upper(name)from cats;
++----------------+
+| upper(name)    |
++----------------+
+| CINDY          |
+| DUMBLEDORE     |
+| MISTY          |
+| GEORGE MICHAEL |
++----------------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select lower(name)from cats;
++----------------+
+| lower(name)    |
++----------------+
+| cindy          |
+| dumbledore     |
+| misty          |
+| george michael |
++----------------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select distinct name from cats;
++----------------+
+| name           |
++----------------+
+| Cindy          |
+| Dumbledore     |
+| Misty          |
+| George Michael |
++----------------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats orderby name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'name' at line 1
+MariaDB [soap_store]> select * from cats order by name;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      5 | Misty          | shorthair  |   13 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats order by name desc;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      5 | Misty          | shorthair  |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      2 | Cindy          | Maine Coon |   12 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats order by age desc;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      5 | Misty          | shorthair  |   13 |
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      6 | George Michael | Ragdoll    |    9 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats order by age ;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      6 | George Michael | Ragdoll    |    9 |
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      5 | Misty          | shorthair  |   13 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats order by name,age ;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      5 | Misty          | shorthair  |   13 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats order by age desc 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '3' at line 1
+MariaDB [soap_store]> select * from cats order by age desc limit 3;
++--------+------------+------------+------+
+| cat_id | name       | breed      | age  |
++--------+------------+------------+------+
+|      5 | Misty      | shorthair  |   13 |
+|      2 | Cindy      | Maine Coon |   12 |
+|      3 | Dumbledore | Maine Coon |   12 |
++--------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats order by age desc limit 1,3;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      6 | George Michael | Ragdoll    |    9 |
++--------+----------------+------------+------+
+3 rows in set (0.00 sec)
+
+MariaDB [soap_store]> where name like %dy%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where name like %dy%' at line 1
+MariaDB [soap_store]> where name like %dy%
+    -> }
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where name like %dy%
+}' at line 1
+MariaDB [soap_store]> select name from cats where name like %'in'%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '%'in'%' at line 1
+MariaDB [soap_store]> select name from cats where name like %'in';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '%'in'' at line 1
+MariaDB [soap_store]> select name from cats where name like '%in%';
++-------+
+| name  |
++-------+
+| Cindy |
++-------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]>  select count(*) from cats;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]>  select count(distinct breed) from cats;
++-----------------------+
+| count(distinct breed) |
++-----------------------+
+|                     3 |
++-----------------------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]>  select count(*) from cats where name like '%in%;
+    '> }
+    '> }
+    '> Bye
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 256
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| reema              |
+| soap_store         |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> use soap_store;
+Database changed
+MariaDB [soap_store]>  select count(*) from cats where name like '%in%';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select breed,count(*)from cats group by breed;
++------------+----------+
+| breed      | count(*) |
++------------+----------+
+| Maine Coon |        2 |
+| Ragdoll    |        1 |
+| shorthair  |        1 |
++------------+----------+
+3 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select name,min(age)from cats;
++-------+----------+
+| name  | min(age) |
++-------+----------+
+| Cindy |        9 |
++-------+----------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select name,max(age)from cats;
++-------+----------+
+| name  | max(age) |
++-------+----------+
+| Cindy |       13 |
++-------+----------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      2 | Cindy          | Maine Coon |   12 |
+|      3 | Dumbledore     | Maine Coon |   12 |
+|      5 | Misty          | shorthair  |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
++--------+----------------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [soap_store]> select max(age),name from cats;
++----------+-------+
+| max(age) | name  |
++----------+-------+
+|       13 | Cindy |
++----------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select max(age),max(name) from cats;
++----------+-----------+
+| max(age) | max(name) |
++----------+-----------+
+|       13 | Misty     |
++----------+-----------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select max(age) from cats;
++----------+
+| max(age) |
++----------+
+|       13 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select min(age) from cats;
++----------+
+| min(age) |
++----------+
+|        9 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats where age=(select max(age) from cats);
++--------+-------+-----------+------+
+| cat_id | name  | breed     | age  |
++--------+-------+-----------+------+
+|      5 | Misty | shorthair |   13 |
++--------+-------+-----------+------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats where age=(select min(age) from cats);
++--------+----------------+---------+------+
+| cat_id | name           | breed   | age  |
++--------+----------------+---------+------+
+|      6 | George Michael | Ragdoll |    9 |
++--------+----------------+---------+------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]> select * from cats order by age limit 1;
++--------+----------------+---------+------+
+| cat_id | name           | breed   | age  |
++--------+----------------+---------+------+
+|      6 | George Michael | Ragdoll |    9 |
++--------+----------------+---------+------+
+1 row in set (0.00 sec)
+
+MariaDB [soap_store]>
