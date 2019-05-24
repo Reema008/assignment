@@ -1,0 +1,351 @@
+Microsoft Windows [Version 10.0.10586]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Users\reemaroy>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 88
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use reemaroy
+Database changed
+MariaDB [reemaroy]> select title,author_lname;
+ERROR 1054 (42S22): Unknown column 'title' in 'field list'
+MariaDB [reemaroy]> DROP TABLE books;
+Query OK, 0 rows affected (0.17 sec)
+
+MariaDB [reemaroy]> CREATE TABLE books
+    -> (
+    -> book_id INT NOT NULL AUTO_INCREMENT,
+    -> title VARCHAR(100),
+    -> author_fname VARCHAR(100),
+    -> author_lname VARCHAR(100),
+    -> released_year INT,
+    -> stock_quantity INT,
+    -> pages INT,
+    -> PRIMARY KEY(book_id)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+MariaDB [reemaroy]> INSERT INTO books (title, author_fname, author_lname, released_year, stock_quantity, pages)
+    -> VALUES
+    -> ('The Namesake', 'Jhumpa', 'Lahiri', 2003, 32, 291),
+    -> ('Norse Mythology', 'Neil', 'Gaiman',2016, 43, 304),
+    -> ('American Gods', 'Neil', 'Gaiman', 2001, 12, 465),
+    -> ('Interpreter of Maladies', 'Jhumpa', 'Lahiri', 1996, 97, 198),
+    -> ('A Hologram for the King: A Novel', 'Dave', 'Eggers', 2012, 154, 352),
+    -> ('The Circle', 'Dave', 'Eggers', 2013, 26, 504),
+    -> ('The Amazing Adventures of Kavalier & Clay', 'Michael', 'Chabon', 2000, 68, 634),
+    -> ('Just Kids', 'Patti', 'Smith', 2010, 55, 304),
+    -> ('A Heartbreaking Work of Staggering Genius', 'Dave', 'Eggers', 2001, 104, 437),
+    -> ('Coraline', 'Neil', 'Gaiman', 2003, 100, 208),
+    -> ('What We Talk About When We Talk About Love: Stories', 'Raymond', 'Carver', 1981, 23, 176),
+    -> ("Where I'm Calling From: Selected Stories", 'Raymond', 'Carver', 1989, 12, 526),
+    -> ('White Noise', 'Don', 'DeLillo', 1985, 49, 320),
+    -> ('Cannery Row', 'John', 'Steinbeck', 1945, 95, 181),
+    -> ('Oblivion: Stories', 'David', 'Foster Wallace', 2004, 172, 329),
+    -> ('Consider the Lobster', 'David', 'Foster Wallace', 2005, 92, 343);
+Query OK, 16 rows affected (0.03 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+MariaDB [reemaroy]> select title,author_lname
+    -> case
+    -> when title like'%stories' then 'short stories'
+    -> when title like'%just kids' then 'memoir'
+    -> when title like'%a heartbreaking work' then 'memoir'
+    -> else 'novel'
+    -> end as type
+    -> from books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'case
+when title like'%stories' then 'short stories'
+when title like'%just kids' ' at line 2
+MariaDB [reemaroy]> select title,author_lname
+    -> when title like'%stories%' then 'short stories'
+    -> when title like'%just kids%' then 'memoir'
+    -> when title like'%a heartbreaking work%' then 'memoir'
+    -> else 'novel'
+    -> end as type
+    -> from books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'when title like'%stories%' then 'short stories'
+when title like'%just kids%' the' at line 2
+MariaDB [reemaroy]> select * from books;
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+| book_id | title                                               | author_fname | author_lname   | released_year | stock_quantity | pages |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+|       1 | The Namesake                                        | Jhumpa       | Lahiri         |          2003 |             32 |   291 |
+|       2 | Norse Mythology                                     | Neil         | Gaiman         |          2016 |             43 |   304 |
+|       3 | American Gods                                       | Neil         | Gaiman         |          2001 |             12 |   465 |
+|       4 | Interpreter of Maladies                             | Jhumpa       | Lahiri         |          1996 |             97 |   198 |
+|       5 | A Hologram for the King: A Novel                    | Dave         | Eggers         |          2012 |            154 |   352 |
+|       6 | The Circle                                          | Dave         | Eggers         |          2013 |             26 |   504 |
+|       7 | The Amazing Adventures of Kavalier & Clay           | Michael      | Chabon         |          2000 |             68 |   634 |
+|       8 | Just Kids                                           | Patti        | Smith          |          2010 |             55 |   304 |
+|       9 | A Heartbreaking Work of Staggering Genius           | Dave         | Eggers         |          2001 |            104 |   437 |
+|      10 | Coraline                                            | Neil         | Gaiman         |          2003 |            100 |   208 |
+|      11 | What We Talk About When We Talk About Love: Stories | Raymond      | Carver         |          1981 |             23 |   176 |
+|      12 | Where I'm Calling From: Selected Stories            | Raymond      | Carver         |          1989 |             12 |   526 |
+|      13 | White Noise                                         | Don          | DeLillo        |          1985 |             49 |   320 |
+|      14 | Cannery Row                                         | John         | Steinbeck      |          1945 |             95 |   181 |
+|      15 | Oblivion: Stories                                   | David        | Foster Wallace |          2004 |            172 |   329 |
+|      16 | Consider the Lobster                                | David        | Foster Wallace |          2005 |             92 |   343 |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+16 rows in set (0.00 sec)
+
+MariaDB [reemaroy]> select title,author_lname,
+    -> when title like'%stories' then 'short stories'
+    -> when title like'%just kids' then 'memoir'
+    -> when title like'%a heartbreaking work' then 'memoir'
+    -> else 'novel'
+    -> end as type
+    -> from books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'when title like'%stories' then 'short stories'
+when title like'%just kids' then ' at line 2
+MariaDB [reemaroy]> select title,author_lname,
+    -> case
+    -> when title like'%stories' then 'short stories'
+    -> when title like'%just kids' then 'memoir'
+    -> when title like'%a heartbreaking work' then 'memoir'
+    -> else 'novel'
+    -> end as type
+    -> from books;
++-----------------------------------------------------+----------------+---------------+
+| title                                               | author_lname   | type          |
++-----------------------------------------------------+----------------+---------------+
+| The Namesake                                        | Lahiri         | novel         |
+| Norse Mythology                                     | Gaiman         | novel         |
+| American Gods                                       | Gaiman         | novel         |
+| Interpreter of Maladies                             | Lahiri         | novel         |
+| A Hologram for the King: A Novel                    | Eggers         | novel         |
+| The Circle                                          | Eggers         | novel         |
+| The Amazing Adventures of Kavalier & Clay           | Chabon         | novel         |
+| Just Kids                                           | Smith          | memoir        |
+| A Heartbreaking Work of Staggering Genius           | Eggers         | novel         |
+| Coraline                                            | Gaiman         | novel         |
+| What We Talk About When We Talk About Love: Stories | Carver         | short stories |
+| Where I'm Calling From: Selected Stories            | Carver         | short stories |
+| White Noise                                         | DeLillo        | novel         |
+| Cannery Row                                         | Steinbeck      | novel         |
+| Oblivion: Stories                                   | Foster Wallace | short stories |
+| Consider the Lobster                                | Foster Wallace | novel         |
++-----------------------------------------------------+----------------+---------------+
+16 rows in set (0.00 sec)
+
+MariaDB [reemaroy]> create table students(id,int not null auto_increment primary key,
+    -> first_name varchar(100) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'int not null auto_increment primary key,
+first_name varchar(100) not null)' at line 1
+MariaDB [reemaroy]> create table students(id int not null auto_increment primary key,
+    -> first_name varchar(100) not null);
+Query OK, 0 rows affected (0.28 sec)
+
+MariaDB [reemaroy]> select columns from students;
+ERROR 1054 (42S22): Unknown column 'columns' in 'field list'
+MariaDB [reemaroy]> select columns from students
+    -> where name=tina;
+ERROR 1054 (42S22): Unknown column 'columns' in 'field list'
+MariaDB [reemaroy]> select columns from students;
+ERROR 1054 (42S22): Unknown column 'columns' in 'field list'
+MariaDB [reemaroy]> show columns from students;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(100) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+MariaDB [reemaroy]> INSERT INTO students (first_name) VALUES
+    -> ('Caleb'), ('Samantha'), ('Raj'), ('Carlos'), ('Lisa');
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [reemaroy]> INSERT INTO papers (student_id, title, grade ) VALUES
+    -> (1, 'My First Book Report', 60),
+    -> (1, 'My Second Book Report', 75),
+    -> (2, 'Russian Lit Through The Ages', 94),
+    -> (2, 'De Montaigne and The Art of The Essay', 98),
+    -> (4, 'Borges and Magical Realism', 89);
+ERROR 1146 (42S02): Table 'reemaroy.papers' doesn't exist
+MariaDB [reemaroy]> select * from students;
++----+------------+
+| id | first_name |
++----+------------+
+|  1 | Caleb      |
+|  2 | Samantha   |
+|  3 | Raj        |
+|  4 | Carlos     |
+|  5 | Lisa       |
++----+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [reemaroy]> CREATE TABLE Papers(
+    -> title VARCHAR(255),
+    -> grade INT,
+    -> student_id INT NOT NULL,
+    -> CONSTRAINT `fk_students_papers` FOREIGN KEY (`student_id`)
+    ->    REFERENCES `students` (`id`) ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.18 sec)
+
+MariaDB [reemaroy]> INSERT INTO students (first_name) VALUES
+    -> ('Caleb'), ('Samantha'), ('Raj'), ('Carlos'), ('Lisa');
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [reemaroy]>
+MariaDB [reemaroy]> INSERT INTO papers (student_id, title, grade ) VALUES
+    -> (1, 'My First Book Report', 60),
+    -> (1, 'My Second Book Report', 75),
+    -> (2, 'Russian Lit Through The Ages', 94),
+    -> (2, 'De Montaigne and The Art of The Essay', 98),
+    -> (4, 'Borges and Magical Realism', 89);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [reemaroy]> select * from papers;
++---------------------------------------+-------+------------+
+| title                                 | grade | student_id |
++---------------------------------------+-------+------------+
+| My First Book Report                  |    60 |          1 |
+| My Second Book Report                 |    75 |          1 |
+| Russian Lit Through The Ages          |    94 |          2 |
+| De Montaigne and The Art of The Essay |    98 |          2 |
+| Borges and Magical Realism            |    89 |          4 |
++---------------------------------------+-------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [reemaroy]> select * from students;
++----+------------+
+| id | first_name |
++----+------------+
+|  1 | Caleb      |
+|  2 | Samantha   |
+|  3 | Raj        |
+|  4 | Carlos     |
+|  5 | Lisa       |
+|  6 | Caleb      |
+|  7 | Samantha   |
+|  8 | Raj        |
+|  9 | Carlos     |
+| 10 | Lisa       |
++----+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [reemaroy]> delete * from students where id=6
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from students where id=6' at line 1
+MariaDB [reemaroy]> delete * from students where id=6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from students where id=6' at line 1
+MariaDB [reemaroy]> delete from students where id=6;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [reemaroy]> delete from students where id=7;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [reemaroy]> delete from students where id=8;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [reemaroy]> delete from students where id=9;
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [reemaroy]> delete from students where id=10;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [reemaroy]> select * from students;
++----+------------+
+| id | first_name |
++----+------------+
+|  1 | Caleb      |
+|  2 | Samantha   |
+|  3 | Raj        |
+|  4 | Carlos     |
+|  5 | Lisa       |
++----+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [reemaroy]> SELECT * FROM PEOPLE;
+ERROR 1146 (42S02): Table 'reemaroy.people' doesn't exist
+MariaDB [reemaroy]> USE SHOP_STORE;
+ERROR 1049 (42000): Unknown database 'shop_store'
+MariaDB [reemaroy]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| reema              |
+| reemaroy           |
+| soap_store         |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [reemaroy]> USE SOAP STORE;
+ERROR 1049 (42000): Unknown database 'soap'
+MariaDB [reemaroy]> USE SOAP_STORE;
+Database changed
+MariaDB [SOAP_STORE]> SELECT * FROM PEOPLE;
++------------+-------------+------+
+| first_name | last_name   | age  |
++------------+-------------+------+
+| tina       | belcher     |   13 |
+| charlie    | clisthopher |   48 |
+| sadie      | belcher     |   38 |
+| calvin     | frond       |   70 |
++------------+-------------+------+
+4 rows in set (0.02 sec)
+
+MariaDB [SOAP_STORE]> DELIMITER $$
+MariaDB [SOAP_STORE]>
+MariaDB [SOAP_STORE]> CREATE TRIGGER must_be_adult
+    ->      BEFORE INSERT ON people FOR EACH ROW
+    ->      BEGIN
+    ->           IF NEW.age < 18
+    ->           THEN
+    ->               SIGNAL SQLSTATE '45000'
+    ->                     SET MESSAGE_TEXT = 'Must be an adult!';
+    ->           END IF;
+    ->      END;
+    -> $$
+Query OK, 0 rows affected (0.07 sec)
+
+MariaDB [SOAP_STORE]>
+MariaDB [SOAP_STORE]> DELIMITER ;
+MariaDB [SOAP_STORE]>
+MariaDB [SOAP_STORE]> SHOW TRIGGERS;
++---------------+--------+--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+---------+--------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger       | Event  | Table  | Statement                                                                                                                                                                   | Timing | Created | sql_mode                                   | Definer        | character_set_client | collation_connection | Database Collation |
++---------------+--------+--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+---------+--------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| must_be_adult | INSERT | people | BEGIN
+          IF NEW.age < 18
+          THEN
+              SIGNAL SQLSTATE '45000'
+                    SET MESSAGE_TEXT = 'Must be an adult!';
+          END IF;
+     END | BEFORE | NULL    | NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | cp850                | cp850_general_ci     | latin1_swedish_ci  |
++---------------+--------+--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+---------+--------------------------------------------+----------------+----------------------+----------------------+--------------------+
+1 row in set (0.01 sec)
+
+MariaDB [SOAP_STORE]> INSERT INTO PEOPLE(FNAME,LNAME,AGE) VALUES('REEMA','ROY',10);
+ERROR 1054 (42S22): Unknown column 'FNAME' in 'field list'
+MariaDB [SOAP_STORE]> INSERT INTO PEOPLE(FIRST_NAME,LAST_NAME,AGE) VALUES('REEMA','ROY',10);
+ERROR 1644 (45000): Must be an adult!
+MariaDB [SOAP_STORE]> INSERT INTO PEOPLE(FIRST_NAME,LAST_NAME,AGE) VALUES('REEMA','ROY',20);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [SOAP_STORE]>
