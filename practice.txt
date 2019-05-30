@@ -1,0 +1,1446 @@
+Microsoft Windows [Version 10.0.17763.107]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\reemaroy>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 16
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> mysql -u root
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mysql -u root' at line 1
+MariaDB [(none)]> mysql -u root
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mysql -u root' at line 1
+MariaDB [(none)]> Bye
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 17
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| reema              |
+| reemaroy           |
+| soap_store         |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> create database practice;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| practice           |
+| reema              |
+| reemaroy           |
+| soap_store         |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [(none)]> use practice;
+Database changed
+MariaDB [practice]> create table phonebook;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [practice]> create table phonebook
+    -> {
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> phnum int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '{
+fname varchar(100),
+lname varchar(100),
+phnum int' at line 2
+MariaDB [practice]> create table phonebook
+    -> (
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> phnum int,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 6
+MariaDB [practice]> create table phonebook
+    -> (
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> phnum int
+    -> );
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [practice]> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| phonebook          |
++--------------------+
+1 row in set (0.00 sec)
+
+MariaDB [practice]> show columns from phonebook;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| fname | varchar(100) | YES  |     | NULL    |       |
+| lname | varchar(100) | YES  |     | NULL    |       |
+| phnum | int(11)      | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> (Andrews, Archie  - (949)345-2222
+    -> Cooper, Betty    - (212)246-9846
+    -> Flanders, Ned    - (415)987-3451
+    -> Jones, Jughead   - (415)888-3777
+    -> Lodge, Veronica  - (714)332-0981
+    -> Snow, Jon        - (949)621-1908
+    -> Stark, Ned       - (310)119-6501
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '345-2222
+Cooper, Betty    - (212)246-9846
+Flanders, Ned    - (415)987-3451
+Jones' at line 3
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Andrews', 'Archie',(949)345-2222),
+    -> ('Cooper','Betty',(212)246-9846),
+    -> ('Flanders', 'Ned',(415)987-3451),
+    -> ('Jones',' Jughead',(415)888-3777),
+    -> ('Lodge', 'Veronica', (714)332-0981);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '345-2222),
+('Cooper','Betty',(212)246-9846),
+('Flanders', 'Ned',(415)987-3451),
+' at line 3
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Andrews', 'Archie',949345-2222),
+    -> ('Cooper','Betty',212246-9846),
+    -> ('Flanders', 'Ned',415987-3451),
+    -> ('Jones',' Jughead',415888-3777),
+    -> ('Lodge', 'Veronica', 714332-0981);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+--------+
+| fname    | lname    | phnum  |
++----------+----------+--------+
+| Andrews  | Archie   | 947123 |
+| Cooper   | Betty    | 202400 |
+| Flanders | Ned      | 412536 |
+| Jones    |  Jughead | 412111 |
+| Lodge    | Veronica | 713351 |
++----------+----------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+--------+
+| fname    | lname    | phnum  |
++----------+----------+--------+
+| Andrews  | Archie   | 947123 |
+| Cooper   | Betty    | 202400 |
+| Flanders | Ned      | 412536 |
+| Jones    |  Jughead | 412111 |
+| Lodge    | Veronica | 713351 |
++----------+----------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [practice]> drop table phonebook;
+Query OK, 0 rows affected (0.19 sec)
+
+MariaDB [practice]> create table phonebook
+    -> {
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> lname varchar(100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '{
+fname varchar(100),
+lname varchar(100),
+lname varchar(100)' at line 2
+MariaDB [practice]> create table phonebook
+    -> (
+    -> fname varchar(100),
+    -> lname varchar(100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 4
+MariaDB [practice]> create table phonebook
+    -> (
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> phnum int
+    -> );
+Query OK, 0 rows affected (0.29 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Andrews', 'Archie',9493452222),
+    -> ('Cooper','Betty',2122469846),
+    -> ('Flanders', 'Ned',4159873451),
+    -> ('Jones',' Jughead',4158883777),
+    -> ('Lodge', 'Veronica', 7143320981);
+Query OK, 5 rows affected, 4 warnings (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 4
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 2147483647 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 2147483647 |
+| Jones    |  Jughead | 2147483647 |
+| Lodge    | Veronica | 2147483647 |
++----------+----------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [practice]> drop table phonebook;
+Query OK, 0 rows affected (0.10 sec)
+
+MariaDB [practice]> create table phonebook
+    -> (
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> phnum int
+    -> );
+Query OK, 0 rows affected (0.35 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Andrews', 'Archie',9493452222;,
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 3
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [practice]> drop table phonebook
+    -> ;
+Query OK, 0 rows affected (0.12 sec)
+
+MariaDB [practice]> create table phonebook
+    -> (
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> phnum bigint
+    -> );
+Query OK, 0 rows affected (0.19 sec)
+
+MariaDB [practice]> show columns from phonebook;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| fname | varchar(100) | YES  |     | NULL    |       |
+| lname | varchar(100) | YES  |     | NULL    |       |
+| phnum | bigint(20)   | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Andrews', 'Archie',9493452222),
+    -> ('Cooper','Betty',2122469846),
+    -> ('Flanders', 'Ned',4159873451),
+    -> ('Jones',' Jughead',4158883777),
+    -> ('Lodge', 'Veronica', 7143320981);
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    |  Jughead | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
++----------+----------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Snow',' Jon',(949)621-1908),
+    -> ('Stark', 'Ned',(310)119-6501);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '621-1908),
+('Stark', 'Ned',(310)119-6501)' at line 3
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Stark', 'Ned',310119-6501);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    |  Jughead | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
+| Stark    | Ned      |     303618 |
++----------+----------+------------+
+6 rows in set (0.00 sec)
+
+MariaDB [practice]> delete * from phonebook where fname="Stark";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from phonebook where fname="Stark"' at line 1
+MariaDB [practice]> delete * from phonebook where fname=Stark;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from phonebook where fname=Stark' at line 1
+MariaDB [practice]> delete * from phonebook where fname=stark;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from phonebook where fname=stark' at line 1
+MariaDB [practice]> delete * from phonebook where phnum=303618;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from phonebook where phnum=303618' at line 1
+MariaDB [practice]> delete from phonebook where phnum=303618;
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    |  Jughead | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
++----------+----------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Stark', 'Ned',310119-6501);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [practice]> delete from phonebook where fname=stark;
+ERROR 1054 (42S22): Unknown column 'stark' in 'where clause'
+MariaDB [practice]> delete from phonebook where fname="stark";
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    |  Jughead | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
++----------+----------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Stark', 'Ned',3101196501),
+    -> ('Snow',' Jon',9496211908);
+Query OK, 2 rows affected (0.04 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    |  Jughead | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
+| Stark    | Ned      | 3101196501 |
+| Snow     |  Jon     | 9496211908 |
++----------+----------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [practice]> select phnum from phonebook where fname="flanders" and lname="ned";
++------------+
+| phnum      |
++------------+
+| 4159873451 |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [practice]> select fname,lname where lname="ned";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where lname="ned"' at line 1
+MariaDB [practice]> select fname,lname from phonebook where lname="ned";
++----------+-------+
+| fname    | lname |
++----------+-------+
+| Flanders | Ned   |
+| Stark    | Ned   |
++----------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [practice]> select fname,lname from cats where char_length(lname)=3;
+ERROR 1146 (42S02): Table 'practice.cats' doesn't exist
+MariaDB [practice]> select fname,lname from phonebook where char_length(lname)=3;
++----------+-------+
+| fname    | lname |
++----------+-------+
+| Flanders | Ned   |
+| Stark    | Ned   |
++----------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [practice]> delete from phonebook where name="snow";
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+MariaDB [practice]> delete from phonebook where fname="snow";
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [practice]> insert into phonebook(fname,lname,phnum)
+    -> values
+    -> ('Snow','Jon',9496211908);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [practice]> select fname,lname from phonebook where char_length(lname)=3;
++----------+-------+
+| fname    | lname |
++----------+-------+
+| Flanders | Ned   |
+| Stark    | Ned   |
+| Snow     | Jon   |
++----------+-------+
+3 rows in set (0.00 sec)
+
+MariaDB [practice]> select phnum from phonebook where phnum like '%415%';
++------------+
+| phnum      |
++------------+
+| 4159873451 |
+| 4158883777 |
++------------+
+2 rows in set (0.00 sec)
+
+MariaDB [practice]> select phnum from phonebook where phnum like '%415';
+Empty set (0.00 sec)
+
+MariaDB [practice]> select phnum from phonebook where phnum like '415%';
++------------+
+| phnum      |
++------------+
+| 4159873451 |
+| 4158883777 |
++------------+
+2 rows in set (0.00 sec)
+
+MariaDB [practice]> select * from phonebook where char_length(lname)=3;
++----------+-------+------------+
+| fname    | lname | phnum      |
++----------+-------+------------+
+| Flanders | Ned   | 4159873451 |
+| Stark    | Ned   | 3101196501 |
+| Snow     | Jon   | 9496211908 |
++----------+-------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [practice]> select practice();
+ERROR 1305 (42000): FUNCTION practice.practice does not exist
+MariaDB [practice]> select reema();
+ERROR 1305 (42000): FUNCTION practice.reema does not exist
+MariaDB [practice]> CREATE TABLE employees (
+    ->     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ->     last_name VARCHAR(255) NOT NULL,
+    ->     first_name VARCHAR(255) NOT NULL,
+    ->     middle_name VARCHAR(255),
+    ->     age INTEGER NOT NULL,
+    ->     current_status VARCHAR(100) NOT NULL DEFAULT 'employed'
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+MariaDB [practice]> show columns from employees;
++----------------+--------------+------+-----+----------+----------------+
+| Field          | Type         | Null | Key | Default  | Extra          |
++----------------+--------------+------+-----+----------+----------------+
+| id             | int(11)      | NO   | PRI | NULL     | auto_increment |
+| last_name      | varchar(255) | NO   |     | NULL     |                |
+| first_name     | varchar(255) | NO   |     | NULL     |                |
+| middle_name    | varchar(255) | YES  |     | NULL     |                |
+| age            | int(11)      | NO   |     | NULL     |                |
+| current_status | varchar(100) | NO   |     | employed |                |
++----------------+--------------+------+-----+----------+----------------+
+6 rows in set (0.01 sec)
+
+MariaDB [practice]> CREATE TABLE employees (
+    ->     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ->     last_name VARCHAR(255) NOT NULL,
+    ->     first_name VARCHAR(255) NOT NULL,
+    ->     middle_name VARCHAR(255),
+    ->     age INT NOT NULL,
+    ->     current_status VARCHAR(100) NOT NULL DEFAULT 'employed'
+    -> );
+ERROR 1050 (42S01): Table 'employees' already exists
+MariaDB [practice]> CREATE TABLE employee (
+    ->     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ->     last_name VARCHAR(255) NOT NULL,
+    ->     first_name VARCHAR(255) NOT NULL,
+    ->     middle_name VARCHAR(255),
+    ->     age INT NOT NULL,
+    ->     current_status VARCHAR(100) NOT NULL DEFAULT 'employed'
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+MariaDB [practice]> show columns from employee;
++----------------+--------------+------+-----+----------+----------------+
+| Field          | Type         | Null | Key | Default  | Extra          |
++----------------+--------------+------+-----+----------+----------------+
+| id             | int(11)      | NO   | PRI | NULL     | auto_increment |
+| last_name      | varchar(255) | NO   |     | NULL     |                |
+| first_name     | varchar(255) | NO   |     | NULL     |                |
+| middle_name    | varchar(255) | YES  |     | NULL     |                |
+| age            | int(11)      | NO   |     | NULL     |                |
+| current_status | varchar(100) | NO   |     | employed |                |
++----------------+--------------+------+-----+----------+----------------+
+6 rows in set (0.01 sec)
+
+MariaDB [practice]> select phnum from phonebook;
++------------+
+| phnum      |
++------------+
+| 9493452222 |
+| 2122469846 |
+| 4159873451 |
+| 4158883777 |
+| 7143320981 |
+| 3101196501 |
+| 9496211908 |
++------------+
+7 rows in set (0.00 sec)
+
+MariaDB [practice]> select * from cats;
+ERROR 1146 (42S02): Table 'practice.cats' doesn't exist
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    |  Jughead | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
+| Stark    | Ned      | 3101196501 |
+| Snow     | Jon      | 9496211908 |
++----------+----------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [practice]> update phonebook set lname='jughead' where lname=' jughead';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    | jughead  | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
+| Stark    | Ned      | 3101196501 |
+| Snow     | Jon      | 9496211908 |
++----------+----------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [practice]> update phonebook set lname='Jughead' where lname='jughead';
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from phonebook;
++----------+----------+------------+
+| fname    | lname    | phnum      |
++----------+----------+------------+
+| Andrews  | Archie   | 9493452222 |
+| Cooper   | Betty    | 2122469846 |
+| Flanders | Ned      | 4159873451 |
+| Jones    | Jughead  | 4158883777 |
+| Lodge    | Veronica | 7143320981 |
+| Stark    | Ned      | 3101196501 |
+| Snow     | Jon      | 9496211908 |
++----------+----------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [practice]> Bye
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database shirts_db;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| practice           |
+| reema              |
+| reemaroy           |
+| shirts_db          |
+| soap_store         |
+| test               |
++--------------------+
+10 rows in set (0.00 sec)
+
+MariaDB [(none)]> use shirts_db;
+Database changed
+MariaDB [shirts_db]> create table shirts(
+    -> shirt_id not null auto_increment primary key,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'not null auto_increment primary key,' at line 2
+MariaDB [shirts_db]> create table shirts(
+    -> shirt_id int not null auto_increment primary key,
+    -> article varchar(100),
+    -> color varchar(100),
+    -> shirt_size varchar(100),
+    -> last_worn int);
+Query OK, 0 rows affected (0.12 sec)
+
+MariaDB [shirts_db]> select * from shirts;
+Empty set (0.00 sec)
+
+MariaDB [shirts_db]> show columns from shirts;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| shirt_id   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| article    | varchar(100) | YES  |     | NULL    |                |
+| color      | varchar(100) | YES  |     | NULL    |                |
+| shirt_size | varchar(100) | YES  |     | NULL    |                |
+| last_worn  | int(11)      | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+MariaDB [shirts_db]> insert into shirts(shirts_id,article,color,shirt_size,last_worn)
+    -> values
+    -> (;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 3
+MariaDB [shirts_db]> insert into shirts(article,color,shirt_size,last_worn)
+    -> values
+    -> ('t-shirt','white','s',10),
+    -> ('t-shirt','green','s',200),
+    -> ('polo shirt','black','m',10),
+    -> ('tank top','blue','s',50),
+    -> ('t-shirt','pink','s',0),
+    -> ('polo shirt','red','m',5),
+    -> ('tank top','white','s',200),
+    -> ('tank top','blue','m',15);
+Query OK, 8 rows affected (0.09 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+-------+------------+-----------+
+| shirt_id | article    | color | shirt_size | last_worn |
++----------+------------+-------+------------+-----------+
+|        1 | t-shirt    | white | s          |        10 |
+|        2 | t-shirt    | green | s          |       200 |
+|        3 | polo shirt | black | m          |        10 |
+|        4 | tank top   | blue  | s          |        50 |
+|        5 | t-shirt    | pink  | s          |         0 |
+|        6 | polo shirt | red   | m          |         5 |
+|        7 | tank top   | white | s          |       200 |
+|        8 | tank top   | blue  | m          |        15 |
++----------+------------+-------+------------+-----------+
+8 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> insert into shirts(article,color,shirt_size,last_worn)
+    -> values
+    -> ('polo shirt','purple','m',50);
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | color  | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        1 | t-shirt    | white  | s          |        10 |
+|        2 | t-shirt    | green  | s          |       200 |
+|        3 | polo shirt | black  | m          |        10 |
+|        4 | tank top   | blue   | s          |        50 |
+|        5 | t-shirt    | pink   | s          |         0 |
+|        6 | polo shirt | red    | m          |         5 |
+|        7 | tank top   | white  | s          |       200 |
+|        8 | tank top   | blue   | m          |        15 |
+|        9 | polo shirt | purple | m          |        50 |
++----------+------------+--------+------------+-----------+
+9 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> select article,color from shirts;
++------------+--------+
+| article    | color  |
++------------+--------+
+| t-shirt    | white  |
+| t-shirt    | green  |
+| polo shirt | black  |
+| tank top   | blue   |
+| t-shirt    | pink   |
+| polo shirt | red    |
+| tank top   | white  |
+| tank top   | blue   |
+| polo shirt | purple |
++------------+--------+
+9 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> select article,color,shirt_size,last_worn where shirt_size="m";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where shirt_size="m"' at line 1
+MariaDB [shirts_db]> select article,color,shirt_size,last_worn from shirts where shirt_size="m";
++------------+--------+------------+-----------+
+| article    | color  | shirt_size | last_worn |
++------------+--------+------------+-----------+
+| polo shirt | black  | m          |        10 |
+| polo shirt | red    | m          |         5 |
+| tank top   | blue   | m          |        15 |
+| polo shirt | purple | m          |        50 |
++------------+--------+------------+-----------+
+4 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> update shirt_size="l" from shirts where article="polo shirts";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"l" from shirts where article="polo shirts"' at line 1
+MariaDB [shirts_db]> update shirts set shirt_size="l" where article="polo shirts";
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | color  | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        1 | t-shirt    | white  | s          |        10 |
+|        2 | t-shirt    | green  | s          |       200 |
+|        3 | polo shirt | black  | m          |        10 |
+|        4 | tank top   | blue   | s          |        50 |
+|        5 | t-shirt    | pink   | s          |         0 |
+|        6 | polo shirt | red    | m          |         5 |
+|        7 | tank top   | white  | s          |       200 |
+|        8 | tank top   | blue   | m          |        15 |
+|        9 | polo shirt | purple | m          |        50 |
++----------+------------+--------+------------+-----------+
+9 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> update shirts set shirt_size="l" where article="polo shirt";
+Query OK, 3 rows affected (0.03 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | color  | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        1 | t-shirt    | white  | s          |        10 |
+|        2 | t-shirt    | green  | s          |       200 |
+|        3 | polo shirt | black  | l          |        10 |
+|        4 | tank top   | blue   | s          |        50 |
+|        5 | t-shirt    | pink   | s          |         0 |
+|        6 | polo shirt | red    | l          |         5 |
+|        7 | tank top   | white  | s          |       200 |
+|        8 | tank top   | blue   | m          |        15 |
+|        9 | polo shirt | purple | l          |        50 |
++----------+------------+--------+------------+-----------+
+9 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> update shirts set last_worn=0 where last_worn=15;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | color  | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        1 | t-shirt    | white  | s          |        10 |
+|        2 | t-shirt    | green  | s          |       200 |
+|        3 | polo shirt | black  | l          |        10 |
+|        4 | tank top   | blue   | s          |        50 |
+|        5 | t-shirt    | pink   | s          |         0 |
+|        6 | polo shirt | red    | l          |         5 |
+|        7 | tank top   | white  | s          |       200 |
+|        8 | tank top   | blue   | m          |         0 |
+|        9 | polo shirt | purple | l          |        50 |
++----------+------------+--------+------------+-----------+
+9 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> update shirts set shirt_size="xs",color="off white" where color="white";
+Query OK, 2 rows affected (0.02 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+-----------+------------+-----------+
+| shirt_id | article    | color     | shirt_size | last_worn |
++----------+------------+-----------+------------+-----------+
+|        1 | t-shirt    | off white | xs         |        10 |
+|        2 | t-shirt    | green     | s          |       200 |
+|        3 | polo shirt | black     | l          |        10 |
+|        4 | tank top   | blue      | s          |        50 |
+|        5 | t-shirt    | pink      | s          |         0 |
+|        6 | polo shirt | red       | l          |         5 |
+|        7 | tank top   | off white | xs         |       200 |
+|        8 | tank top   | blue      | m          |         0 |
+|        9 | polo shirt | purple    | l          |        50 |
++----------+------------+-----------+------------+-----------+
+9 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> delete from shirts where last_worn=200;
+Query OK, 2 rows affected (0.03 sec)
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+-----------+------------+-----------+
+| shirt_id | article    | color     | shirt_size | last_worn |
++----------+------------+-----------+------------+-----------+
+|        1 | t-shirt    | off white | xs         |        10 |
+|        3 | polo shirt | black     | l          |        10 |
+|        4 | tank top   | blue      | s          |        50 |
+|        5 | t-shirt    | pink      | s          |         0 |
+|        6 | polo shirt | red       | l          |         5 |
+|        8 | tank top   | blue      | m          |         0 |
+|        9 | polo shirt | purple    | l          |        50 |
++----------+------------+-----------+------------+-----------+
+7 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> delete from shirts where article="tank tops";
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [shirts_db]> delete from shirts where article="tank top";
+Query OK, 2 rows affected (0.03 sec)
+
+MariaDB [shirts_db]> select *from shirts;
++----------+------------+-----------+------------+-----------+
+| shirt_id | article    | color     | shirt_size | last_worn |
++----------+------------+-----------+------------+-----------+
+|        1 | t-shirt    | off white | xs         |        10 |
+|        3 | polo shirt | black     | l          |        10 |
+|        5 | t-shirt    | pink      | s          |         0 |
+|        6 | polo shirt | red       | l          |         5 |
+|        9 | polo shirt | purple    | l          |        50 |
++----------+------------+-----------+------------+-----------+
+5 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> delete from shirts where article="polo shirt";
+Query OK, 3 rows affected (0.03 sec)
+
+MariaDB [shirts_db]> select *from shirts;
++----------+---------+-----------+------------+-----------+
+| shirt_id | article | color     | shirt_size | last_worn |
++----------+---------+-----------+------------+-----------+
+|        1 | t-shirt | off white | xs         |        10 |
+|        5 | t-shirt | pink      | s          |         0 |
++----------+---------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+MariaDB [shirts_db]> drop table shirts;
+Query OK, 0 rows affected (0.08 sec)
+
+MariaDB [shirts_db]> SELECT
+    ->   REPLACE
+    ->   (
+    ->   CONCAT('I', ' ', 'like', ' ', 'cats'),
+    ->   ' ',
+    ->   '-'
+    ->   );
++-----------------------------------------------------------------------+
+| REPLACE
+  (
+  CONCAT('I', ' ', 'like', ' ', 'cats'),
+  ' ',
+  '-'
+  ) |
++-----------------------------------------------------------------------+
+| I-like-cats                                                           |
++-----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [shirts_db]> select reverse[lahiri];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '[lahiri]' at line 1
+MariaDB [shirts_db]> select reverse(lahiri);
+ERROR 1054 (42S22): Unknown column 'lahiri' in 'field list'
+MariaDB [shirts_db]> select reverse["lahiri"];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '["lahiri"]' at line 1
+MariaDB [shirts_db]> select reverse("lahiri");
++-------------------+
+| reverse("lahiri") |
++-------------------+
+| irihal            |
++-------------------+
+1 row in set (0.00 sec)
+
+MariaDB [shirts_db]> use practice;
+Database changed
+MariaDB [practice]> CREATE TABLE books
+    -> (
+    -> book_id INT NOT NULL AUTO_INCREMENT,
+    -> title VARCHAR(100),
+    -> author_fname VARCHAR(100),
+    -> author_lname VARCHAR(100),
+    -> released_year INT,
+    -> stock_quantity INT,
+    -> pages INT,
+    -> PRIMARY KEY(book_id)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+MariaDB [practice]> INSERT INTO books (title, author_fname, author_lname, released_year, stock_quantity, pages)
+    -> VALUES
+    -> ('The Namesake', 'Jhumpa', 'Lahiri', 2003, 32, 291),
+    -> ('Norse Mythology', 'Neil', 'Gaiman',2016, 43, 304),
+    -> ('American Gods', 'Neil', 'Gaiman', 2001, 12, 465),
+    -> ('Interpreter of Maladies', 'Jhumpa', 'Lahiri', 1996, 97, 198),
+    -> ('A Hologram for the King: A Novel', 'Dave', 'Eggers', 2012, 154, 352),
+    -> ('The Circle', 'Dave', 'Eggers', 2013, 26, 504),
+    -> ('The Amazing Adventures of Kavalier & Clay', 'Michael', 'Chabon', 2000, 68, 634),
+    -> ('Just Kids', 'Patti', 'Smith', 2010, 55, 304),
+    -> ('A Heartbreaking Work of Staggering Genius', 'Dave', 'Eggers', 2001, 104, 437),
+    -> ('Coraline', 'Neil', 'Gaiman', 2003, 100, 208),
+    -> ('What We Talk About When We Talk About Love: Stories', 'Raymond', 'Carver', 1981, 23, 176),
+    -> ("Where I'm Calling From: Selected Stories", 'Raymond', 'Carver', 1989, 12, 526),
+    -> ('White Noise', 'Don', 'DeLillo', 1985, 49, 320),
+    -> ('Cannery Row', 'John', 'Steinbeck', 1945, 95, 181),
+    -> ('Oblivion: Stories', 'David', 'Foster Wallace', 2004, 172, 329),
+    -> ('Consider the Lobster', 'David', 'Foster Wallace', 2005, 92, 343);
+Query OK, 16 rows affected (0.04 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from books;
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+| book_id | title                                               | author_fname | author_lname   | released_year | stock_quantity | pages |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+|       1 | The Namesake                                        | Jhumpa       | Lahiri         |          2003 |             32 |   291 |
+|       2 | Norse Mythology                                     | Neil         | Gaiman         |          2016 |             43 |   304 |
+|       3 | American Gods                                       | Neil         | Gaiman         |          2001 |             12 |   465 |
+|       4 | Interpreter of Maladies                             | Jhumpa       | Lahiri         |          1996 |             97 |   198 |
+|       5 | A Hologram for the King: A Novel                    | Dave         | Eggers         |          2012 |            154 |   352 |
+|       6 | The Circle                                          | Dave         | Eggers         |          2013 |             26 |   504 |
+|       7 | The Amazing Adventures of Kavalier & Clay           | Michael      | Chabon         |          2000 |             68 |   634 |
+|       8 | Just Kids                                           | Patti        | Smith          |          2010 |             55 |   304 |
+|       9 | A Heartbreaking Work of Staggering Genius           | Dave         | Eggers         |          2001 |            104 |   437 |
+|      10 | Coraline                                            | Neil         | Gaiman         |          2003 |            100 |   208 |
+|      11 | What We Talk About When We Talk About Love: Stories | Raymond      | Carver         |          1981 |             23 |   176 |
+|      12 | Where I'm Calling From: Selected Stories            | Raymond      | Carver         |          1989 |             12 |   526 |
+|      13 | White Noise                                         | Don          | DeLillo        |          1985 |             49 |   320 |
+|      14 | Cannery Row                                         | John         | Steinbeck      |          1945 |             95 |   181 |
+|      15 | Oblivion: Stories                                   | David        | Foster Wallace |          2004 |            172 |   329 |
+|      16 | Consider the Lobster                                | David        | Foster Wallace |          2005 |             92 |   343 |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select concat(author_fname,author_lname);
+ERROR 1054 (42S22): Unknown column 'author_fname' in 'field list'
+MariaDB [practice]> select concat(author_fname,author_lname) from books;
++-----------------------------------+
+| concat(author_fname,author_lname) |
++-----------------------------------+
+| JhumpaLahiri                      |
+| NeilGaiman                        |
+| NeilGaiman                        |
+| JhumpaLahiri                      |
+| DaveEggers                        |
+| DaveEggers                        |
+| MichaelChabon                     |
+| PattiSmith                        |
+| DaveEggers                        |
+| NeilGaiman                        |
+| RaymondCarver                     |
+| RaymondCarver                     |
+| DonDeLillo                        |
+| JohnSteinbeck                     |
+| DavidFoster Wallace               |
+| DavidFoster Wallace               |
++-----------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select concat(author_fname," ",author_lname) from books;
++---------------------------------------+
+| concat(author_fname," ",author_lname) |
++---------------------------------------+
+| Jhumpa Lahiri                         |
+| Neil Gaiman                           |
+| Neil Gaiman                           |
+| Jhumpa Lahiri                         |
+| Dave Eggers                           |
+| Dave Eggers                           |
+| Michael Chabon                        |
+| Patti Smith                           |
+| Dave Eggers                           |
+| Neil Gaiman                           |
+| Raymond Carver                        |
+| Raymond Carver                        |
+| Don DeLillo                           |
+| John Steinbeck                        |
+| David Foster Wallace                  |
+| David Foster Wallace                  |
++---------------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> SELECT
+    ->     CONCAT_WS(' - ', title, author_fname, author_lname)
+    -> FROM books;
++------------------------------------------------------------------------+
+| CONCAT_WS(' - ', title, author_fname, author_lname)                    |
++------------------------------------------------------------------------+
+| The Namesake - Jhumpa - Lahiri                                         |
+| Norse Mythology - Neil - Gaiman                                        |
+| American Gods - Neil - Gaiman                                          |
+| Interpreter of Maladies - Jhumpa - Lahiri                              |
+| A Hologram for the King: A Novel - Dave - Eggers                       |
+| The Circle - Dave - Eggers                                             |
+| The Amazing Adventures of Kavalier & Clay - Michael - Chabon           |
+| Just Kids - Patti - Smith                                              |
+| A Heartbreaking Work of Staggering Genius - Dave - Eggers              |
+| Coraline - Neil - Gaiman                                               |
+| What We Talk About When We Talk About Love: Stories - Raymond - Carver |
+| Where I'm Calling From: Selected Stories - Raymond - Carver            |
+| White Noise - Don - DeLillo                                            |
+| Cannery Row - John - Steinbeck                                         |
+| Oblivion: Stories - David - Foster Wallace                             |
+| Consider the Lobster - David - Foster Wallace                          |
++------------------------------------------------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select substring(title,10) from books;
++--------------------------------------------+
+| substring(title,10)                        |
++--------------------------------------------+
+| ake                                        |
+| hology                                     |
+| Gods                                       |
+| er of Maladies                             |
+| m for the King: A Novel                    |
+| e                                          |
+| ng Adventures of Kavalier & Clay           |
+|                                            |
+| eaking Work of Staggering Genius           |
+|                                            |
+| alk About When We Talk About Love: Stories |
+|  Calling From: Selected Stories            |
+| se                                         |
+| ow                                         |
+|  Stories                                   |
+| the Lobster                                |
++--------------------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select substring(title,0,10) from books;
++-----------------------+
+| substring(title,0,10) |
++-----------------------+
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
+|                       |
++-----------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select substring(title,1,10) from books;
++-----------------------+
+| substring(title,1,10) |
++-----------------------+
+| The Namesa            |
+| Norse Myth            |
+| American G            |
+| Interprete            |
+| A Hologram            |
+| The Circle            |
+| The Amazin            |
+| Just Kids             |
+| A Heartbre            |
+| Coraline              |
+| What We Ta            |
+| Where I'm             |
+| White Nois            |
+| Cannery Ro            |
+| Oblivion:             |
+| Consider t            |
++-----------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select reverse(upper("Why does my cat look at me with such hatred?"));
++----------------------------------------------------------------+
+| reverse(upper("Why does my cat look at me with such hatred?")) |
++----------------------------------------------------------------+
+| ?DERTAH HCUS HTIW EM TA KOOL TAC YM SEOD YHW                   |
++----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [practice]> SELECT
+    ->   REPLACE
+    ->   (
+    ->   CONCAT('I', ' ', 'like', ' ', 'cats'),
+    ->   ' ',
+    ->   '-'
+    ->   );
++-----------------------------------------------------------------------+
+| REPLACE
+  (
+  CONCAT('I', ' ', 'like', ' ', 'cats'),
+  ' ',
+  '-'
+  ) |
++-----------------------------------------------------------------------+
+| I-like-cats                                                           |
++-----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [practice]> select replace(title," ","->") from books;
++--------------------------------------------------------------+
+| replace(title," ","->")                                      |
++--------------------------------------------------------------+
+| The->Namesake                                                |
+| Norse->Mythology                                             |
+| American->Gods                                               |
+| Interpreter->of->Maladies                                    |
+| A->Hologram->for->the->King:->A->Novel                       |
+| The->Circle                                                  |
+| The->Amazing->Adventures->of->Kavalier->&->Clay              |
+| Just->Kids                                                   |
+| A->Heartbreaking->Work->of->Staggering->Genius               |
+| Coraline                                                     |
+| What->We->Talk->About->When->We->Talk->About->Love:->Stories |
+| Where->I'm->Calling->From:->Selected->Stories                |
+| White->Noise                                                 |
+| Cannery->Row                                                 |
+| Oblivion:->Stories                                           |
+| Consider->the->Lobster                                       |
++--------------------------------------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select reverse(lname) from books;
+ERROR 1054 (42S22): Unknown column 'lname' in 'field list'
+MariaDB [practice]> select reverse(author_ lname) from books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'lname) from books' at line 1
+MariaDB [practice]> select reverse(author_lname) from books;
++-----------------------+
+| reverse(author_lname) |
++-----------------------+
+| irihaL                |
+| namiaG                |
+| namiaG                |
+| irihaL                |
+| sreggE                |
+| sreggE                |
+| nobahC                |
+| htimS                 |
+| sreggE                |
+| namiaG                |
+| revraC                |
+| revraC                |
+| olliLeD               |
+| kcebnietS             |
+| ecallaW retsoF        |
+| ecallaW retsoF        |
++-----------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select upper(concat(author_fname,author_lname));
+ERROR 1054 (42S22): Unknown column 'author_fname' in 'field list'
+MariaDB [practice]> select upper(concat(author_fname,author_lname))from books;
++------------------------------------------+
+| upper(concat(author_fname,author_lname)) |
++------------------------------------------+
+| JHUMPALAHIRI                             |
+| NEILGAIMAN                               |
+| NEILGAIMAN                               |
+| JHUMPALAHIRI                             |
+| DAVEEGGERS                               |
+| DAVEEGGERS                               |
+| MICHAELCHABON                            |
+| PATTISMITH                               |
+| DAVEEGGERS                               |
+| NEILGAIMAN                               |
+| RAYMONDCARVER                            |
+| RAYMONDCARVER                            |
+| DONDELILLO                               |
+| JOHNSTEINBECK                            |
+| DAVIDFOSTER WALLACE                      |
+| DAVIDFOSTER WALLACE                      |
++------------------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select upper(concat(author_fname,' ',author_lname))from books;
++----------------------------------------------+
+| upper(concat(author_fname,' ',author_lname)) |
++----------------------------------------------+
+| JHUMPA LAHIRI                                |
+| NEIL GAIMAN                                  |
+| NEIL GAIMAN                                  |
+| JHUMPA LAHIRI                                |
+| DAVE EGGERS                                  |
+| DAVE EGGERS                                  |
+| MICHAEL CHABON                               |
+| PATTI SMITH                                  |
+| DAVE EGGERS                                  |
+| NEIL GAIMAN                                  |
+| RAYMOND CARVER                               |
+| RAYMOND CARVER                               |
+| DON DELILLO                                  |
+| JOHN STEINBECK                               |
+| DAVID FOSTER WALLACE                         |
+| DAVID FOSTER WALLACE                         |
++----------------------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select concat(title," was released in ",released_year);
+ERROR 1054 (42S22): Unknown column 'title' in 'field list'
+MariaDB [practice]> select concat(title," was released in ",released_year) from books;
++--------------------------------------------------------------------------+
+| concat(title," was released in ",released_year)                          |
++--------------------------------------------------------------------------+
+| The Namesake was released in 2003                                        |
+| Norse Mythology was released in 2016                                     |
+| American Gods was released in 2001                                       |
+| Interpreter of Maladies was released in 1996                             |
+| A Hologram for the King: A Novel was released in 2012                    |
+| The Circle was released in 2013                                          |
+| The Amazing Adventures of Kavalier & Clay was released in 2000           |
+| Just Kids was released in 2010                                           |
+| A Heartbreaking Work of Staggering Genius was released in 2001           |
+| Coraline was released in 2003                                            |
+| What We Talk About When We Talk About Love: Stories was released in 1981 |
+| Where I'm Calling From: Selected Stories was released in 1989            |
+| White Noise was released in 1985                                         |
+| Cannery Row was released in 1945                                         |
+| Oblivion: Stories was released in 2004                                   |
+| Consider the Lobster was released in 2005                                |
++--------------------------------------------------------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select title,char_count(title) from books;
+ERROR 1305 (42000): FUNCTION practice.char_count does not exist
+MariaDB [practice]> select char_count(title) from books;
+ERROR 1305 (42000): FUNCTION practice.char_count does not exist
+MariaDB [practice]> select title,char_length(title) from books;
++-----------------------------------------------------+--------------------+
+| title                                               | char_length(title) |
++-----------------------------------------------------+--------------------+
+| The Namesake                                        |                 12 |
+| Norse Mythology                                     |                 15 |
+| American Gods                                       |                 13 |
+| Interpreter of Maladies                             |                 23 |
+| A Hologram for the King: A Novel                    |                 32 |
+| The Circle                                          |                 10 |
+| The Amazing Adventures of Kavalier & Clay           |                 41 |
+| Just Kids                                           |                  9 |
+| A Heartbreaking Work of Staggering Genius           |                 41 |
+| Coraline                                            |                  8 |
+| What We Talk About When We Talk About Love: Stories |                 51 |
+| Where I'm Calling From: Selected Stories            |                 40 |
+| White Noise                                         |                 11 |
+| Cannery Row                                         |                 11 |
+| Oblivion: Stories                                   |                 17 |
+| Consider the Lobster                                |                 20 |
++-----------------------------------------------------+--------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [practice]> select substring(title,1,10),concat(author_lname,','author.fname),concat(stock_quantity," in stock") from ooks;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.fname),concat(stock_quantity," in stock") from ooks' at line 1
+MariaDB [practice]> INSERT INTO books
+    ->     (title, author_fname, author_lname, released_year, stock_quantity, pages)
+    ->     VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256),
+    ->            ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
+    ->            ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from books;
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+| book_id | title                                               | author_fname | author_lname   | released_year | stock_quantity | pages |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+|       1 | The Namesake                                        | Jhumpa       | Lahiri         |          2003 |             32 |   291 |
+|       2 | Norse Mythology                                     | Neil         | Gaiman         |          2016 |             43 |   304 |
+|       3 | American Gods                                       | Neil         | Gaiman         |          2001 |             12 |   465 |
+|       4 | Interpreter of Maladies                             | Jhumpa       | Lahiri         |          1996 |             97 |   198 |
+|       5 | A Hologram for the King: A Novel                    | Dave         | Eggers         |          2012 |            154 |   352 |
+|       6 | The Circle                                          | Dave         | Eggers         |          2013 |             26 |   504 |
+|       7 | The Amazing Adventures of Kavalier & Clay           | Michael      | Chabon         |          2000 |             68 |   634 |
+|       8 | Just Kids                                           | Patti        | Smith          |          2010 |             55 |   304 |
+|       9 | A Heartbreaking Work of Staggering Genius           | Dave         | Eggers         |          2001 |            104 |   437 |
+|      10 | Coraline                                            | Neil         | Gaiman         |          2003 |            100 |   208 |
+|      11 | What We Talk About When We Talk About Love: Stories | Raymond      | Carver         |          1981 |             23 |   176 |
+|      12 | Where I'm Calling From: Selected Stories            | Raymond      | Carver         |          1989 |             12 |   526 |
+|      13 | White Noise                                         | Don          | DeLillo        |          1985 |             49 |   320 |
+|      14 | Cannery Row                                         | John         | Steinbeck      |          1945 |             95 |   181 |
+|      15 | Oblivion: Stories                                   | David        | Foster Wallace |          2004 |            172 |   329 |
+|      16 | Consider the Lobster                                | David        | Foster Wallace |          2005 |             92 |   343 |
+|      17 | 10% Happier                                         | Dan          | Harris         |          2014 |             29 |   256 |
+|      18 | fake_book                                           | Freida       | Harris         |          2001 |            287 |   428 |
+|      19 | Lincoln In The Bardo                                | George       | Saunders       |          2017 |           1000 |   367 |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+19 rows in set (0.00 sec)
+
+MariaDB [practice]>
+MariaDB [practice]> SELECT DISTINCT author_lname FROM books;
++----------------+
+| author_lname   |
++----------------+
+| Lahiri         |
+| Gaiman         |
+| Eggers         |
+| Chabon         |
+| Smith          |
+| Carver         |
+| DeLillo        |
+| Steinbeck      |
+| Foster Wallace |
+| Harris         |
+| Saunders       |
++----------------+
+11 rows in set (0.00 sec)
+
+MariaDB [practice]> SELECT author_lname FROM books ORDER BY author_lname;
++----------------+
+| author_lname   |
++----------------+
+| Carver         |
+| Carver         |
+| Chabon         |
+| DeLillo        |
+| Eggers         |
+| Eggers         |
+| Eggers         |
+| Foster Wallace |
+| Foster Wallace |
+| Gaiman         |
+| Gaiman         |
+| Gaiman         |
+| Harris         |
+| Harris         |
+| Lahiri         |
+| Lahiri         |
+| Saunders       |
+| Smith          |
+| Steinbeck      |
++----------------+
+19 rows in set (0.00 sec)
+
+MariaDB [practice]> SELECT title, author_fname, author_lname
+    -> FROM books ORDER BY 2;
++-----------------------------------------------------+--------------+----------------+
+| title                                               | author_fname | author_lname   |
++-----------------------------------------------------+--------------+----------------+
+| 10% Happier                                         | Dan          | Harris         |
+| A Hologram for the King: A Novel                    | Dave         | Eggers         |
+| The Circle                                          | Dave         | Eggers         |
+| A Heartbreaking Work of Staggering Genius           | Dave         | Eggers         |
+| Consider the Lobster                                | David        | Foster Wallace |
+| Oblivion: Stories                                   | David        | Foster Wallace |
+| White Noise                                         | Don          | DeLillo        |
+| fake_book                                           | Freida       | Harris         |
+| Lincoln In The Bardo                                | George       | Saunders       |
+| The Namesake                                        | Jhumpa       | Lahiri         |
+| Interpreter of Maladies                             | Jhumpa       | Lahiri         |
+| Cannery Row                                         | John         | Steinbeck      |
+| The Amazing Adventures of Kavalier & Clay           | Michael      | Chabon         |
+| American Gods                                       | Neil         | Gaiman         |
+| Norse Mythology                                     | Neil         | Gaiman         |
+| Coraline                                            | Neil         | Gaiman         |
+| Just Kids                                           | Patti        | Smith          |
+| What We Talk About When We Talk About Love: Stories | Raymond      | Carver         |
+| Where I'm Calling From: Selected Stories            | Raymond      | Carver         |
++-----------------------------------------------------+--------------+----------------+
+19 rows in set (0.00 sec)
+
+MariaDB [practice]> SELECT title, author_fname, author_lname
+    -> FROM books ORDER BY 1;
++-----------------------------------------------------+--------------+----------------+
+| title                                               | author_fname | author_lname   |
++-----------------------------------------------------+--------------+----------------+
+| 10% Happier                                         | Dan          | Harris         |
+| A Heartbreaking Work of Staggering Genius           | Dave         | Eggers         |
+| A Hologram for the King: A Novel                    | Dave         | Eggers         |
+| American Gods                                       | Neil         | Gaiman         |
+| Cannery Row                                         | John         | Steinbeck      |
+| Consider the Lobster                                | David        | Foster Wallace |
+| Coraline                                            | Neil         | Gaiman         |
+| fake_book                                           | Freida       | Harris         |
+| Interpreter of Maladies                             | Jhumpa       | Lahiri         |
+| Just Kids                                           | Patti        | Smith          |
+| Lincoln In The Bardo                                | George       | Saunders       |
+| Norse Mythology                                     | Neil         | Gaiman         |
+| Oblivion: Stories                                   | David        | Foster Wallace |
+| The Amazing Adventures of Kavalier & Clay           | Michael      | Chabon         |
+| The Circle                                          | Dave         | Eggers         |
+| The Namesake                                        | Jhumpa       | Lahiri         |
+| What We Talk About When We Talk About Love: Stories | Raymond      | Carver         |
+| Where I'm Calling From: Selected Stories            | Raymond      | Carver         |
+| White Noise                                         | Don          | DeLillo        |
++-----------------------------------------------------+--------------+----------------+
+19 rows in set (0.00 sec)
+
+MariaDB [practice]> SELECT title, author_fname, author_lname
+    -> FROM books ORDER BY 3;
++-----------------------------------------------------+--------------+----------------+
+| title                                               | author_fname | author_lname   |
++-----------------------------------------------------+--------------+----------------+
+| Where I'm Calling From: Selected Stories            | Raymond      | Carver         |
+| What We Talk About When We Talk About Love: Stories | Raymond      | Carver         |
+| The Amazing Adventures of Kavalier & Clay           | Michael      | Chabon         |
+| White Noise                                         | Don          | DeLillo        |
+| A Hologram for the King: A Novel                    | Dave         | Eggers         |
+| The Circle                                          | Dave         | Eggers         |
+| A Heartbreaking Work of Staggering Genius           | Dave         | Eggers         |
+| Oblivion: Stories                                   | David        | Foster Wallace |
+| Consider the Lobster                                | David        | Foster Wallace |
+| Coraline                                            | Neil         | Gaiman         |
+| American Gods                                       | Neil         | Gaiman         |
+| Norse Mythology                                     | Neil         | Gaiman         |
+| fake_book                                           | Freida       | Harris         |
+| 10% Happier                                         | Dan          | Harris         |
+| The Namesake                                        | Jhumpa       | Lahiri         |
+| Interpreter of Maladies                             | Jhumpa       | Lahiri         |
+| Lincoln In The Bardo                                | George       | Saunders       |
+| Just Kids                                           | Patti        | Smith          |
+| Cannery Row                                         | John         | Steinbeck      |
++-----------------------------------------------------+--------------+----------------+
+19 rows in set (0.00 sec)
+
+MariaDB [practice]> select substring(title,1,10),concat(author_lname,','author.fname),concat(stock_quantity," in stock") from books where released_year=2001;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.fname),concat(stock_quantity," in stock") from books where released_year=2001' at line 1
+MariaDB [practice]> select concat(substring(title,1,10),"..."),concat(author_lname,','author.fname),concat(stock_quantity," in stock") where released_year=2001 from books;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.fname),concat(stock_quantity," in stock") where released_year=2001 from books' at line 1
+MariaDB [practice]>
+MariaDB [practice]> select concat(substring(title,1,10),"..."),concat(author_lname,',',author_fname),concat(stock_quantity," in stock") from books where released_year=2001 ;
++-------------------------------------+---------------------------------------+------------------------------------+
+| concat(substring(title,1,10),"...") | concat(author_lname,',',author_fname) | concat(stock_quantity," in stock") |
++-------------------------------------+---------------------------------------+------------------------------------+
+| American G...                       | Gaiman,Neil                           | 12 in stock                        |
+| A Heartbre...                       | Eggers,Dave                           | 104 in stock                       |
+| fake_book...                        | Harris,Freida                         | 287 in stock                       |
++-------------------------------------+---------------------------------------+------------------------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [practice]>
