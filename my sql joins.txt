@@ -1,0 +1,408 @@
+MariaDB [(none)]> use table;
+Database changed
+MariaDB [table]> show tables;
++-----------------+
+| Tables_in_table |
++-----------------+
+| books           |
+| cats            |
+| char table      |
+| employees       |
+| papers          |
+| people          |
+| students        |
++-----------------+
+7 rows in set (0.00 sec)
+
+MariaDB [table]> select * from papers;
++---------------------------------------+-------+------------+
+| title                                 | grade | student_id |
++---------------------------------------+-------+------------+
+| My First Book Report                  |    60 |          1 |
+| My Second Book Report                 |    75 |          1 |
+| Russian Lit Through The Ages          |    94 |          2 |
+| De Montaigne and The Art of The Essay |    98 |          2 |
+| Borges and Magical Realism            |    89 |          4 |
++---------------------------------------+-------+------------+
+5 rows in set (0.03 sec)
+
+MariaDB [table]> select * from students;
++----+------------+
+| id | first_name |
++----+------------+
+|  1 | Caleb      |
+|  2 | Samantha   |
+|  3 | Raj        |
+|  4 | Carlos     |
+|  5 | Lisa       |
++----+------------+
+5 rows in set (0.03 sec)
+
+MariaDB [table]> select * from students inner join papers on papers.student_id=students.id;
++----+------------+---------------------------------------+-------+------------+
+| id | first_name | title                                 | grade | student_id |
++----+------------+---------------------------------------+-------+------------+
+|  1 | Caleb      | My First Book Report                  |    60 |          1 |
+|  1 | Caleb      | My Second Book Report                 |    75 |          1 |
+|  2 | Samantha   | Russian Lit Through The Ages          |    94 |          2 |
+|  2 | Samantha   | De Montaigne and The Art of The Essay |    98 |          2 |
+|  4 | Carlos     | Borges and Magical Realism            |    89 |          4 |
++----+------------+---------------------------------------+-------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [table]> select * from students left join papers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [table]> select * from students left join papers on papers.student_id=students.id;
++----+------------+---------------------------------------+-------+------------+
+| id | first_name | title                                 | grade | student_id |
++----+------------+---------------------------------------+-------+------------+
+|  1 | Caleb      | My First Book Report                  |    60 |          1 |
+|  1 | Caleb      | My Second Book Report                 |    75 |          1 |
+|  2 | Samantha   | Russian Lit Through The Ages          |    94 |          2 |
+|  2 | Samantha   | De Montaigne and The Art of The Essay |    98 |          2 |
+|  4 | Carlos     | Borges and Magical Realism            |    89 |          4 |
+|  3 | Raj        | NULL                                  |  NULL |       NULL |
+|  5 | Lisa       | NULL                                  |  NULL |       NULL |
++----+------------+---------------------------------------+-------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [table]> select * from students right join papers on papers.student_id=students.id;
++------+------------+---------------------------------------+-------+------------+
+| id   | first_name | title                                 | grade | student_id |
++------+------------+---------------------------------------+-------+------------+
+|    1 | Caleb      | My First Book Report                  |    60 |          1 |
+|    1 | Caleb      | My Second Book Report                 |    75 |          1 |
+|    2 | Samantha   | Russian Lit Through The Ages          |    94 |          2 |
+|    2 | Samantha   | De Montaigne and The Art of The Essay |    98 |          2 |
+|    4 | Carlos     | Borges and Magical Realism            |    89 |          4 |
++------+------------+---------------------------------------+-------+------------+
+5 rows in set (0.00 sec)
+
+
+MariaDB [table]> select first_name,title,grade from students inner join papers on papers.student_id=students.id order by grade desc;
++------------+---------------------------------------+-------+
+| first_name | title                                 | grade |
++------------+---------------------------------------+-------+
+| Samantha   | De Montaigne and The Art of The Essay |    98 |
+| Samantha   | Russian Lit Through The Ages          |    94 |
+| Carlos     | Borges and Magical Realism            |    89 |
+| Caleb      | My Second Book Report                 |    75 |
+| Caleb      | My First Book Report                  |    60 |
++------------+---------------------------------------+-------+
+5 rows in set (0.00 sec)
+
+MariaDB [table]>
+
+MariaDB [table]>  select first_name,title,grade from students left join papers on papers.student_id=students.id order by id;
++------------+---------------------------------------+-------+
+| first_name | title                                 | grade |
++------------+---------------------------------------+-------+
+| Caleb      | My Second Book Report                 |    75 |
+| Caleb      | My First Book Report                  |    60 |
+| Samantha   | Russian Lit Through The Ages          |    94 |
+| Samantha   | De Montaigne and The Art of The Essay |    98 |
+| Raj        | NULL                                  |  NULL |
+| Carlos     | Borges and Magical Realism            |    89 |
+| Lisa       | NULL                                  |  NULL |
++------------+---------------------------------------+-------+
+7 rows in set (0.00 sec)
+
+
+MariaDB [table]>  select first_name,IFNULL(title,'MISSING'),IFNULL(grade,0) from students left join papers on papers.student_id=students.id ORDER BY id;
++------------+---------------------------------------+-----------------+
+| first_name | IFNULL(title,'MISSING')               | IFNULL(grade,0) |
++------------+---------------------------------------+-----------------+
+| Caleb      | My Second Book Report                 |              75 |
+| Caleb      | My First Book Report                  |              60 |
+| Samantha   | De Montaigne and The Art of The Essay |              98 |
+| Samantha   | Russian Lit Through The Ages          |              94 |
+| Raj        | MISSING                               |               0 |
+| Carlos     | Borges and Magical Realism            |              89 |
+| Lisa       | MISSING                               |               0 |
++------------+---------------------------------------+-----------------+
+7 rows in set (0.00 sec)
+
+MariaDB [table]>  select first_name,IFNULL(avg(grade),'0') as average from students left join papers on papers.student_id=students.id GROUP BY first_name ORDER BY avg(grade) DESC;
++------------+---------+
+| first_name | average |
++------------+---------+
+| Samantha   | 96.0000 |
+| Carlos     | 89.0000 |
+| Caleb      | 67.5000 |
+| Lisa       | 0       |
+| Raj        | 0       |
++------------+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [table]>  select first_name,IFNULL(avg(grade),'0') as average,case when avg(grade)<70 or avg(grade)='0' then 'failing' else 'passing' end as 'passing_status' from students left join papers on papers.student_id=students.id GROUP BY first_name ORDER BY avg(grade) DESC;
++------------+---------+----------------+
+| first_name | average | passing_status |
++------------+---------+----------------+
+| Samantha   | 96.0000 | passing        |
+| Carlos     | 89.0000 | passing        |
+| Caleb      | 67.5000 | failing        |
+| Raj        | 0       | passing        |
+| Lisa       | 0       | passing        |
+
+create table Reviewers(id int not null auto_increment primary key,
+first_name varchar(100),last_name varchar(100));
+
+INSERT INTO reviewers (first_name, last_name) VALUES
+    ('Thomas', 'Stoneman'),
+    ('Wyatt', 'Skaggs'),
+    ('Kimbra', 'Masters'),
+    ('Domingo', 'Cortes'),
+    ('Colt', 'Steele'),
+    ('Pinkie', 'Petit'),
+    ('Marlon', 'Crafford');
+
+create table series(id int not null auto_increment primary key,
+title varchar(100),released_year int,genre varchar(100));
+
+INSERT INTO series (title, released_year, genre) VALUES
+    ('Archer', 2009, 'Animation'),
+    ('Arrested Development', 2003, 'Comedy'),
+    ("Bob's Burgers", 2011, 'Animation'),
+    ('Bojack Horseman', 2014, 'Animation'),
+    ("Breaking Bad", 2008, 'Drama'),
+    ('Curb Your Enthusiasm', 2000, 'Comedy'),
+    ("Fargo", 2014, 'Drama'),
+    ('Freaks and Geeks', 1999, 'Comedy'),
+    ('General Hospital', 1963, 'Drama'),
+    ('Halt and Catch Fire', 2014, 'Drama'),
+    ('Malcolm In The Middle', 2000, 'Comedy'),
+    ('Pushing Daisies', 2007, 'Comedy'),
+    ('Seinfeld', 1989, 'Comedy'),
+    ('Stranger Things', 2016, 'Drama');
+
+create table Reviews(id int not null auto_increment primary key,
+series_id int,reviewer_id int,rating decimal(2,1);
+
+INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
+    (1,1,8.0),(1,2,7.5),(1,3,8.5),(1,4,7.7),(1,5,8.9),
+    (2,1,8.1),(2,4,6.0),(2,3,8.0),(2,6,8.4),(2,5,9.9),
+    (3,1,7.0),(3,6,7.5),(3,4,8.0),(3,3,7.1),(3,5,8.0),
+    (4,1,7.5),(4,3,7.8),(4,4,8.3),(4,2,7.6),(4,5,8.5),
+    (5,1,9.5),(5,3,9.0),(5,4,9.1),(5,2,9.3),(5,5,9.9),
+    (6,2,6.5),(6,3,7.8),(6,4,8.8),(6,2,8.4),(6,5,9.1),
+    (7,2,9.1),(7,5,9.7),
+    (8,4,8.5),(8,2,7.8),(8,6,8.8),(8,5,9.3),
+    (9,2,5.5),(9,3,6.8),(9,4,5.8),(9,6,4.3),(9,5,4.5),
+    (10,5,9.9),
+    (13,3,8.0),(13,4,7.2),
+    (14,2,8.5),(14,3,8.9),(14,4,8.9);
+
+MariaDB [table]> select title,rating from series inner join reviews on reviews.series_id=series.id;
++----------------------+--------+
+| title                | rating |
++----------------------+--------+
+| Archer               |    8.0 |
+| Archer               |    7.5 |
+| Archer               |    8.5 |
+| Archer               |    7.7 |
+| Archer               |    8.9 |
+| Arrested Development |    8.1 |
+| Arrested Development |    6.0 |
+| Arrested Development |    8.0 |
+| Arrested Development |    8.4 |
+| Arrested Development |    9.9 |
+| Bob's Burgers        |    7.0 |
+| Bob's Burgers        |    7.5 |
+| Bob's Burgers        |    8.0 |
+| Bob's Burgers        |    7.1 |
+| Bob's Burgers        |    8.0 |
+| Bojack Horseman      |    7.5 |
+| Bojack Horseman      |    7.8 |
+| Bojack Horseman      |    8.3 |
+| Bojack Horseman      |    7.6 |
+| Bojack Horseman      |    8.5 |
+| Breaking Bad         |    9.5 |
+| Breaking Bad         |    9.0 |
+| Breaking Bad         |    9.1 |
+| Breaking Bad         |    9.3 |
+| Breaking Bad         |    9.9 |
+| Curb Your Enthusiasm |    6.5 |
+| Curb Your Enthusiasm |    7.8 |
+| Curb Your Enthusiasm |    8.8 |
+| Curb Your Enthusiasm |    8.4 |
+| Curb Your Enthusiasm |    9.1 |
+| Fargo                |    9.1 |
+| Fargo                |    9.7 |
+| Freaks and Geeks     |    8.5 |
+| Freaks and Geeks     |    7.8 |
+| Freaks and Geeks     |    8.8 |
+| Freaks and Geeks     |    9.3 |
+| General Hospital     |    5.5 |
+| General Hospital     |    6.8 |
+| General Hospital     |    5.8 |
+| General Hospital     |    4.3 |
+| General Hospital     |    4.5 |
+| Halt and Catch Fire  |    9.9 |
+| Seinfeld             |    8.0 |
+| Seinfeld             |    7.2 |
+| Stranger Things      |    8.5 |
+| Stranger Things      |    8.9 |
+| Stranger Things      |    8.9 |
++----------------------+--------+
+47 rows in set (0.00 sec)
+
+MariaDB [table]> select title,avg(rating) as avg_rating from series inner join reviews on reviews.series_id=series.id group by title order by avg(rating);
++----------------------+------------+
+| title                | avg_rating |
++----------------------+------------+
+| General Hospital     |    5.38000 |
+| Bob's Burgers        |    7.52000 |
+| Seinfeld             |    7.60000 |
+| Bojack Horseman      |    7.94000 |
+| Arrested Development |    8.08000 |
+| Curb Your Enthusiasm |    8.12000 |
+| Archer               |    8.12000 |
+| Freaks and Geeks     |    8.60000 |
+| Stranger Things      |    8.76667 |
+| Breaking Bad         |    9.36000 |
+| Fargo                |    9.40000 |
+| Halt and Catch Fire  |    9.90000 |
++----------------------+------------+
+12 rows in set (0.00 sec)
+
+
+MariaDB [table]> select first_name,last_name,rating from reviewers inner join reviews on reviews.series_id=reviewers.id;
++------------+-----------+--------+
+| first_name | last_name | rating |
++------------+-----------+--------+
+| Thomas     | Stoneman  |    8.0 |
+| Thomas     | Stoneman  |    7.5 |
+| Thomas     | Stoneman  |    8.5 |
+| Thomas     | Stoneman  |    7.7 |
+| Thomas     | Stoneman  |    8.9 |
+| Wyatt      | Skaggs    |    8.1 |
+| Wyatt      | Skaggs    |    6.0 |
+| Wyatt      | Skaggs    |    8.0 |
+| Wyatt      | Skaggs    |    8.4 |
+| Wyatt      | Skaggs    |    9.9 |
+| Kimbra     | Masters   |    7.0 |
+| Kimbra     | Masters   |    7.5 |
+| Kimbra     | Masters   |    8.0 |
+| Kimbra     | Masters   |    7.1 |
+| Kimbra     | Masters   |    8.0 |
+| Domingo    | Cortes    |    7.5 |
+| Domingo    | Cortes    |    7.8 |
+| Domingo    | Cortes    |    8.3 |
+| Domingo    | Cortes    |    7.6 |
+| Domingo    | Cortes    |    8.5 |
+| Colt       | Steele    |    9.5 |
+| Colt       | Steele    |    9.0 |
+| Colt       | Steele    |    9.1 |
+| Colt       | Steele    |    9.3 |
+| Colt       | Steele    |    9.9 |
+| Pinkie     | Petit     |    6.5 |
+| Pinkie     | Petit     |    7.8 |
+| Pinkie     | Petit     |    8.8 |
+| Pinkie     | Petit     |    8.4 |
+| Pinkie     | Petit     |    9.1 |
+| Marlon     | Crafford  |    9.1 |
+| Marlon     | Crafford  |    9.7 |
++------------+-----------+--------+
+32 rows in set (0.00 sec)
+
+MariaDB [table]> select title as unreviwed_series from series left join reviews on reviews.series_id=series.id WHERE rating IS NULL;
++-----------------------+
+| unreviwed_series      |
++-----------------------+
+| Malcolm In The Middle |
+| Pushing Daisies       |
++-----------------------+
+2 rows in set (0.00 sec)
+
+
+MariaDB [table]> select genre,avg(rating) as avg_rating from series left join reviews on reviews.series_id=series.id group by genre order by avg(rating);
++-----------+------------+
+| genre     | avg_rating |
++-----------+------------+
+| Animation |    7.86000 |
+| Drama     |    8.04375 |
+| Comedy    |    8.16250 |
++-----------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [table]> select title,rating,concat(first_name," ",last_name) as 'reviewer' from series inner join reviews On series.id=reviews.series_id inner join reviewers on reviewers.id=reviews.reviewer_id WHERE title like '%archer%' || title like '%arrested%' || title like '%burgers%';
++----------------------+--------+-----------------+
+| title                | rating | reviewer        |
++----------------------+--------+-----------------+
+| Archer               |    8.0 | Thomas Stoneman |
+| Archer               |    7.5 | Wyatt Skaggs    |
+| Archer               |    8.5 | Kimbra Masters  |
+| Archer               |    7.7 | Domingo Cortes  |
+| Archer               |    8.9 | Colt Steele     |
+| Arrested Development |    8.1 | Thomas Stoneman |
+| Arrested Development |    6.0 | Domingo Cortes  |
+| Arrested Development |    8.0 | Kimbra Masters  |
+| Arrested Development |    8.4 | Pinkie Petit    |
+| Arrested Development |    9.9 | Colt Steele     |
+| Bob's Burgers        |    7.0 | Thomas Stoneman |
+| Bob's Burgers        |    7.5 | Pinkie Petit    |
+| Bob's Burgers        |    8.0 | Domingo Cortes  |
+| Bob's Burgers        |    7.1 | Kimbra Masters  |
+| Bob's Burgers        |    8.0 | Colt Steele     |
++----------------------+--------+-----------------+
+15 rows in set (0.00 sec)
+
+MariaDB [table]>
+
+MariaDB [table]> select title,rating from series inner join reviews on reviews.series_id=series.id WHERE title like '%archer%' || title like '%arrested%' || title like '%burgers%';
++----------------------+--------+
+| title                | rating |
++----------------------+--------+
+| Archer               |    8.0 |
+| Archer               |    7.5 |
+| Archer               |    8.5 |
+| Archer               |    7.7 |
+| Archer               |    8.9 |
+| Arrested Development |    8.1 |
+| Arrested Development |    6.0 |
+| Arrested Development |    8.0 |
+| Arrested Development |    8.4 |
+| Arrested Development |    9.9 |
+| Bob's Burgers        |    7.0 |
+| Bob's Burgers        |    7.5 |
+| Bob's Burgers        |    8.0 |
+| Bob's Burgers        |    7.1 |
+| Bob's Burgers        |    8.0 |
++----------------------+--------+
+
+MariaDB [table]> select first_name,last_name,rating from reviewers inner join reviews on reviews.series_id=reviewers.id where first_name like '%thomas%' || first_name like '%Wyat%' || first_name like '%kimb%';
++------------+-----------+--------+
+| first_name | last_name | rating |
++------------+-----------+--------+
+| Thomas     | Stoneman  |    8.0 |
+| Thomas     | Stoneman  |    7.5 |
+| Thomas     | Stoneman  |    8.5 |
+| Thomas     | Stoneman  |    7.7 |
+| Thomas     | Stoneman  |    8.9 |
+| Wyatt      | Skaggs    |    8.1 |
+| Wyatt      | Skaggs    |    6.0 |
+| Wyatt      | Skaggs    |    8.0 |
+| Wyatt      | Skaggs    |    8.4 |
+| Wyatt      | Skaggs    |    9.9 |
+| Kimbra     | Masters   |    7.0 |
+| Kimbra     | Masters   |    7.5 |
+| Kimbra     | Masters   |    8.0 |
+| Kimbra     | Masters   |    7.1 |
+| Kimbra     | Masters   |    8.0 |
++------------+-----------+--------+
+
+
+MariaDB [table]> select first_name,last_name,count(reviewer_id) as COUNT,ifnull(min(rating),0) as MIN,ifnull(max(rating),0) as MAX,ifnull(avg(rating),0) as AVG,case when min(rating)!=0  then 'ACTIVE' else 'INACTIVE' end as STATUS from reviewers left join reviews on reviews.reviewer_id=reviewers.id GROUP BY reviewer_id;
++------------+-----------+-------+-----+-----+---------+----------+
+| first_name | last_name | COUNT | MIN | MAX | AVG     | STATUS   |
++------------+-----------+-------+-----+-----+---------+----------+
+| Marlon     | Crafford  |     0 | 0.0 | 0.0 | 0.00000 | INACTIVE |
+| Thomas     | Stoneman  |     5 | 7.0 | 9.5 | 8.02000 | ACTIVE   |
+| Wyatt      | Skaggs    |     9 | 5.5 | 9.3 | 7.80000 | ACTIVE   |
+| Kimbra     | Masters   |     9 | 6.8 | 9.0 | 7.98889 | ACTIVE   |
+| Domingo    | Cortes    |    10 | 5.8 | 9.1 | 7.83000 | ACTIVE   |
+| Colt       | Steele    |    10 | 4.5 | 9.9 | 8.77000 | ACTIVE   |
+| Pinkie     | Petit     |     4 | 4.3 | 8.8 | 7.25000 | ACTIVE   |
++------------+-----------+-------+-----+-----+---------+----------+
+7 rows in set (0.00 sec)
+
