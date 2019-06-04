@@ -1,0 +1,64 @@
+Microsoft Windows [Version 10.0.17763.503]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\reemaroy>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+ERROR 2003 (HY000): Can't connect to MySQL server on 'localhost' (10061 "Unknown error")
+
+C:\xampp\mysql\bin>mysql -u root
+ERROR 2003 (HY000): Can't connect to MySQL server on 'localhost' (10061 "Unknown error")
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 16
+Server version: 10.1.40-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database producer;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use producer
+Database changed
+MariaDB [producer]> drop database producer;
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [(none)]> create database project
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use project;
+Database changed
+
+MariaDB [project]> create table producer(producerId int not null auto_increment primary key,producerName varchar(31) not null,email varchar(255) not null,passwordHash varchar(15) not null,twitterName varchar(15) not null,soundcloudName varchar(31) not null,producerStatus varchar(10)not null);
+Query OK, 0 rows affected (0.14 sec)
+
+MariaDB [project]> show columns from producer;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| producerId     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| producerName   | varchar(31)  | NO   |     | NULL    |                |
+| email          | varchar(255) | NO   |     | NULL    |                |
+| passwordHash   | varchar(15)  | NO   |     | NULL    |                |
+| twitterName    | varchar(15)  | NO   |     | NULL    |                |
+| soundcloudName | varchar(31)  | NO   |     | NULL    |                |
+| producerStatus | varchar(10)  | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.01 sec)
+
+MariaDB [project]> create table beat(beatId int not null auto_increment primary key,beatName varchar(63) not null,beatUrl varchar(100) not null,approved int not null,producersId int not null,CONSTRAINT `fk_producer_beat` FOREIGN KEY (`producersId`) references `producer` (`producerId`) on delete cascade,submitDate date not null,approvalDate date not null,post datetime not null);
+Query OK, 0 rows affected (0.15 sec)
+
+MariaDB [project]>
